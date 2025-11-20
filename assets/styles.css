@@ -1,0 +1,128 @@
+/* ============================================================
+   GAWK — Check My Specs
+   UI Stylesheet
+   Matches PoP Builder design: clean, bold, Gawk Green accents.
+   ============================================================ */
+
+/* ------------------------------
+   GLOBAL
+-------------------------------- */
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 40px;
+    background: #ffffff;
+    color: #542D54; /* Gawk Purple */
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+/* ------------------------------
+   HEADER IMAGE
+-------------------------------- */
+.header-container {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header-image {
+    max-width: 460px;
+    width: 90%;
+    height: auto;
+}
+
+/* ------------------------------
+   UPLOAD SECTION
+-------------------------------- */
+.upload-container {
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.dropdown {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 2px solid #542D54;
+    background: #ffffff;
+    color: #542D54;
+    font-size: 16px;
+    margin-bottom: 20px;
+    outline: none;
+    cursor: pointer;
+}
+
+/* ------------------------------
+   DRAG & DROP AREA
+-------------------------------- */
+.drop-area {
+    border: 2px dashed #542D54;
+    border-radius: 12px;
+    padding: 35px;
+    background: #fafafa;
+    color: #542D54;
+    margin-bottom: 20px;
+    transition: 0.3s ease;
+}
+
+.drop-area.drag-over {
+    background: #f2f2f2;
+    border-color: #D7DF23; /* Gawk Green highlight */
+}
+
+.drop-area p {
+    margin: 0 0 14px 0;
+    font-size: 16px;
+}
+
+/* Hidden file input */
+#fileElem {
+    display: none;
+}
+
+/* ------------------------------
+   BUTTONS
+-------------------------------- */
+.gawk-button {
+    background: #D7DF23; /* Gawk Green */
+    color: #542D54; /* Gawk Purple text */
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s ease;
+    font-weight: 600;
+}
+
+.gawk-button:hover {
+    background: #c7cf1f;
+}
+
+/* ------------------------------
+   RESULTS
+-------------------------------- */
+.result-container {
+    margin-top: 25px;
+    text-align: left;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    border-radius: 12px;
+    background: #f5f5f5;
+    border: 2px solid #542D54;
+}
+
+#result {
+    white-space: pre-wrap;
+    text-align: left;
+    color: #333;
+    font-size: 14px;
+}
