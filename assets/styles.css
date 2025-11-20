@@ -40,13 +40,19 @@ body {
 -------------------------------- */
 .upload-container {
     width: 100%;
-    max-width: 800px;              /* wider, like PoP tool */
+    max-width: 800px;
     background: #FFFFFF !important;
     border-radius: 12px;
     padding: 40px 50px;
     margin-bottom: 30px;
-    border: 3px solid #D7DF23;     /* Gawk Green outline */
-    color: #542D54 !important;     /* Purple text inside card */
+    border: 3px solid #D7DF23;
+    color: #542D54 !important;
+
+    text-align: center;        /* NEW (centers dropdown & text) */
+    display: flex;             /* NEW */
+    flex-direction: column;    /* NEW */
+    align-items: center;       /* NEW */
+    gap: 25px;                 /* NEW, perfect PoP spacing */
 }
 
 /* ------------------------------
@@ -62,20 +68,31 @@ body {
     font-size: 16px;
     font-weight: 600;
     font-family: "Montserrat", sans-serif !important;
+
+    display: block;
+    margin: 0 auto 20px auto;
+    text-align: left;
 }
 
 /* ------------------------------
    DROP AREA
 -------------------------------- */
 .drop-area {
-    border: 3px dashed #542D54; /* Purple dashed box */
+    border: 3px dashed #542D54;
     border-radius: 12px;
     padding: 50px 20px;
-    background: #f7f7f7;        /* Very light grey */
+    background: #f7f7f7;
     color: #542D54;
     font-size: 16px;
     margin-bottom: 25px;
     transition: 0.3s ease;
+
+    text-align: center;       /* NEW */
+    display: flex;            /* NEW */
+    flex-direction: column;   /* NEW */
+    align-items: center;      /* NEW */
+    justify-content: center;  /* NEW */
+    gap: 15px;                /* NEW */
 }
 
 .drop-area.drag-over {
@@ -96,18 +113,23 @@ body {
    BUTTONS — MATCH POP BUILDER
 -------------------------------- */
 .gawk-button {
-    background-color: #D7DF23 !important;
-    color: #542D54 !important;
-    border: none;
-    border-radius: 999px;
-    padding: 12px 26px;
+    background-color: #D7DF23 !important;  /* Gawk Green */
+    color: #542D54 !important;             /* Gawk Purple text */
+    border: none !important;
+    border-radius: 999px !important;       /* pill shape */
+    padding: 14px 32px !important;
     font-weight: 700 !important;
+    font-size: 16px !important;
+    font-family: "Montserrat", sans-serif !important; /* FIX */
+    letter-spacing: 0.4px !important;      /* FIX for Mac squish */
     cursor: pointer;
-    font-size: 16px;
+    margin: 0 auto;                        /* CENTER BUTTON */
+    display: block;                        /* Allows margin auto */
     transition: 0.2s ease;
-    margin-top: 10px;
-    font-family: "Montserrat", sans-serif !important;   /* FIXED */
-    letter-spacing: 0.3px; /* prevents squished look on Mac */
+}
+
+.gawk-button:hover {
+    background-color: #C8D51E !important;
 }
 
 .gawk-button:hover {
