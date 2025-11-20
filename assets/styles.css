@@ -25,7 +25,7 @@ body {
 .header-container {
     width: 100%;
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
 
 .header-image {
@@ -78,21 +78,23 @@ body {
    DROP AREA
 -------------------------------- */
 .drop-area {
+    width: 100%;                 /* FULL WIDTH — matches dropdown */
+    max-width: 100%;             /* ensures it fills container */
     border: 3px dashed #542D54;
     border-radius: 12px;
-    padding: 50px 20px;
+    padding: 60px 20px;
     background: #f7f7f7;
     color: #542D54;
     font-size: 16px;
     margin-bottom: 25px;
     transition: 0.3s ease;
 
-    text-align: center;       /* NEW */
-    display: flex;            /* NEW */
-    flex-direction: column;   /* NEW */
-    align-items: center;      /* NEW */
-    justify-content: center;  /* NEW */
-    gap: 15px;                /* NEW */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
 }
 
 .drop-area.drag-over {
@@ -158,4 +160,9 @@ body {
     white-space: pre-wrap;
     font-family: monospace;
     color: #333;
+}
+
+.check-button {
+    margin-top: 25px !important;
+    margin-bottom: 40px !important;
 }
