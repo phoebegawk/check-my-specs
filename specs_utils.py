@@ -97,14 +97,14 @@ def check_jpg(file_bytes: bytes, specs: Dict[str, Any]) -> Dict[str, Any]:
             "status": "fail",
             "message": "❌ Artwork DOES NOT meet specifications.",
             "issues": [
-                "File cannot be opened. Please export as a clean .jpg and upload again."
+                "File cannot be opened. Please export as a clean .jpg and re-upload."
             ],
         }
 
     # 1. File format (strict .jpg only – internal format must be JPEG)
     if img.format != "JPEG":
         issues.append(
-            "File type is not .jpg. Please export as a .jpg file and upload again."
+            "File type is not .jpg. Please export as .jpg and re-upload."
         )
 
     # 2. Dimensions (pixels)
@@ -113,12 +113,12 @@ def check_jpg(file_bytes: bytes, specs: Dict[str, Any]) -> Dict[str, Any]:
 
     if img.width != expected_w:
         issues.append(
-            f"Incorrect width. Expected {expected_w}px. Please re-export and upload again."
+            f"Incorrect width. Expected {expected_w}px. Please adjust and re-upload."
         )
 
     if img.height != expected_h:
         issues.append(
-            f"Incorrect height. Expected {expected_h}px. Please re-export and upload again."
+            f"Incorrect height. Expected {expected_h}px. Please adjust and re-upload."
         )
 
     # 3. DPI
@@ -128,7 +128,7 @@ def check_jpg(file_bytes: bytes, specs: Dict[str, Any]) -> Dict[str, Any]:
     if not dpi:
         issues.append(
             f"DPI missing. Digital screens require {expected_dpi}dpi. "
-            "Please re-export and upload again."
+            "Please adjust and re-upload."
         )
     else:
         # Pillow often stores dpi as (x, y)
@@ -136,14 +136,14 @@ def check_jpg(file_bytes: bytes, specs: Dict[str, Any]) -> Dict[str, Any]:
         if x_dpi != expected_dpi:
             issues.append(
                 f"Incorrect DPI. Digital screens require {expected_dpi}dpi. "
-                "Please re-export and upload again."
+                "Please adjust and re-upload."
             )
 
     # 4. Colour mode
     if img.mode != "RGB":
         issues.append(
             "Incorrect colour mode. Digital screens require RGB. "
-            "Please convert and upload again."
+            "Please convert to RGB and re-upload."
         )
 
     # Final result
@@ -189,14 +189,14 @@ def check_pdf(file_bytes: bytes, specs: Dict[str, Any]) -> Dict[str, Any]:
             "status": "fail",
             "message": "❌ Artwork DOES NOT meet specifications.",
             "issues": [
-                "Unable to read PDF file. Please export a clean, print-ready PDF and upload again."
+                "Unable to read PDF file. Please re-upload a clean, print-ready PDF file."
             ],
         }
 
     # ---------- Single page only ----------
     if num_pages != 1:
         issues.append(
-            "Multi-page PDF detected. Please export a single-page PDF at the required size and upload again."
+            "Multi-page PDF detected. Please re-upload as single-page PDF."
         )
 
     # ---------- Page size (mm) ----------
@@ -215,7 +215,7 @@ def check_pdf(file_bytes: bytes, specs: Dict[str, Any]) -> Dict[str, Any]:
         issues.append(
             f"Incorrect page size. Expected {expected_w_mm}mm × {expected_h_mm}mm. "
             f"Detected {round(page_w_mm, 1)}mm × {round(page_h_mm, 1)}mm. "
-            "Please re-export at the correct size with no bleed or crop marks."
+            "Please re-upload at correct size with no bleed or crop marks."
         )
 
     # ---------- Bleed / crop detection ----------
@@ -230,7 +230,7 @@ def check_pdf(file_bytes: bytes, specs: Dict[str, Any]) -> Dict[str, Any]:
     ):
         issues.append(
             "Bleed or trim area detected (TrimBox present). "
-            "Please remove bleed and crop marks and export at final size only."
+            "Please remove bleed and crop marks and re-upload."
         )
 
     if bleed_size and (
@@ -238,7 +238,7 @@ def check_pdf(file_bytes: bytes, specs: Dict[str, Any]) -> Dict[str, Any]:
         or not nearly(bleed_size["height_mm"], page_h_mm)
     ):
         issues.append(
-            "Bleed detected. Artwork must be exported at final size with no bleed."
+            "Bleed detected. Please re-upload with no bleed."
         )
 
     if crop_size and (
@@ -246,21 +246,21 @@ def check_pdf(file_bytes: bytes, specs: Dict[str, Any]) -> Dict[str, Any]:
         or not nearly(crop_size["height_mm"], page_h_mm)
     ):
         issues.append(
-            "Crop marks detected. Please remove crop marks and export at final size only."
+            "Crop marks detected. Please re-upload with no crop marks."
         )
 
     # Also: if the page itself is clearly larger than spec, treat as bleed.
     if (page_w_mm - expected_w_mm) > 0.5 or (page_h_mm - expected_h_mm) > 0.5:
         issues.append(
             "Bleed detected. Page is larger than the required size. "
-            "Please export at final size with no bleed or crop marks."
+            "Please re-upload at final size with no bleed or crop marks."
         )
 
     # ---------- Colour space: forbid RGB ----------
     if page_has_rgb(page):
         issues.append(
-            "RGB colour detected. Static print requires CMYK only. "
-            "Please convert all colours to CMYK and export again."
+            "RGB colour detected. Static print requires CMYK. "
+            "Please convert to CMYK and re-upload."
         )
 
     # ---------- Approx DPI check for raster images ----------
@@ -271,7 +271,7 @@ def check_pdf(file_bytes: bytes, specs: Dict[str, Any]) -> Dict[str, Any]:
     if min_dpi is not None and min_dpi < (expected_dpi - 10):
         issues.append(
             f"Image resolution too low. Minimum detected is around {int(min_dpi)}dpi. "
-            f"Static print requires {expected_dpi}dpi. Please re-export at higher resolution."
+            f"Static print requires {expected_dpi}dpi. Please adjust and re-upload."
         )
 
     # ---------- Final result ----------
