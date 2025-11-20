@@ -41,7 +41,10 @@ async def home():
 
         <div class="upload-container">
 
-            <select id="specSelect" class="dropdown">...</select>
+            <select id="specSelect" class="dropdown">
+                <option value="" disabled selected>Select Board Type + Size</option>
+                {options_html}
+            </select>
 
             <div id="drop-area" class="drop-area">
                 <p>Drag & drop your artwork here</p>
