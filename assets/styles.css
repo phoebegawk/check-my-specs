@@ -197,3 +197,15 @@ body {
     opacity: 0;
     display: none;
 }
+
+.reset-button {
+    background-color: #ffffff !important;
+    color: #542D54 !important;
+    border: 2px solid #D7DF23 !important;
+    margin-top: 5px !important;
+    margin-bottom: 25px !important;
+}
+
+.reset-button:hover {
+    background-color: #f0f0f0 !important;
+}
