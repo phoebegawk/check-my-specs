@@ -56,7 +56,7 @@ async def home():
 
             <!-- Appears after file upload -->
             <div id="upload-confirm" class="upload-confirm hidden">
-                Files uploaded! Click the button below.
+                ⬇️ File(s) uploaded! Click the button below. ⬇️
             </div>
 
         </div>
