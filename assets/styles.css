@@ -160,9 +160,13 @@ body {
 }
 
 #result {
-    white-space: pre-wrap;
-    font-family: monospace;
-    color: #333;
+    white-space: normal;
+    font-family: "Montserrat", sans-serif !important;
+    color: #333 !important;
+    text-align: center;
+    padding: 20px 0;
+    line-height: 1.5;
+    font-size: 18px;
 }
 
 .check-button {
