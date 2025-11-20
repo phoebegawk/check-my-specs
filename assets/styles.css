@@ -146,14 +146,14 @@ body {
 -------------------------------- */
 .result-container {
     width: 100%;
-    max-width: 800px;   /* same as upload-container */
+    max-width: 800px;
     background: #ffffff;
     color: #333;
-    padding: 12px 20px; /* REDUCED padding */
+    padding: 40px 50px;
     border-radius: 12px;
     border: 3px solid #D7DF23;
     margin-top: 20px;
-    text-align: center;  /* center the text cleanly */
+    text-align: center;
 }
 
 .hidden {
@@ -182,20 +182,15 @@ body {
 }
 
 .upload-confirm {
-    font-family: "Montserrat", sans-serif !important;
+    color: #542D54;
     font-size: 16px;
-    color: #542D54; /* Gawk Purple */
-    background: #D7DF23; /* Gawk Green */
-    padding: 10px 16px;
-    border-radius: 8px;
-    font-weight: 700;
-    margin-top: -10px;  /* tight spacing */
-    margin-bottom: 10px;
+    font-weight: 600;
     text-align: center;
-    width: 100%;
-    max-width: 400px;
-    opacity: 1;
-    transition: opacity 0.3s ease;
+    margin-top: 16px;
+    margin-bottom: 0;
+    padding: 0;
+    background: none !important;
+    border: none !important;
 }
 
 .upload-confirm.hidden {
