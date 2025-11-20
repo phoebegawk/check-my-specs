@@ -41,7 +41,7 @@ dropArea.addEventListener("drop", (event) => {
 });
 
 /* ---------------------------------------
-   SUBMIT → Send File to Backend
+   SUBMIT → Send File to Backend (PRETTY OUTPUT)
 ---------------------------------------- */
 checkBtn.addEventListener("click", async () => {
 
@@ -68,9 +68,48 @@ checkBtn.addEventListener("click", async () => {
         body: formData
     });
 
-    const result = await response.json();
+    const data = await response.json();
 
-    // Display
+    const result = document.getElementById("result");
+    const resultContainer = document.getElementById("result-container");
+
+    /* PASS ----------------------------------------- */
+    if (data.status === "pass") {
+        result.innerHTML = `
+            <div style="color:#2a7a34;
+                        font-weight:700;
+                        font-size:20px;
+                        padding:10px 0;">
+                ${data.message}
+            </div>
+        `;
+    }
+
+    /* FAIL ----------------------------------------- */
+    else {
+        const issuesHtml = data.issues
+            .map(i => `<li style="margin-bottom:8px;">${i}</li>`)
+            .join("");
+
+        result.innerHTML = `
+            <div style="color:#b00020;
+                        font-weight:700;
+                        font-size:20px;
+                        padding:10px 0;">
+                ${data.message}
+            </div>
+
+            <ul style="color:#333;
+                       font-size:16px;
+                       padding-left:20px;
+                       margin-top:0;">
+                ${issuesHtml}
+            </ul>
+        `;
+    }
+
     resultContainer.classList.remove("hidden");
-    resultBox.textContent = JSON.stringify(result, null, 2);
+
+    // OPTIONAL: auto scroll into view
+    resultContainer.scrollIntoView({ behavior: "smooth" });
 });
