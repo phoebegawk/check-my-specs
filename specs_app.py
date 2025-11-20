@@ -46,6 +46,11 @@ async def home():
                 {options_html}
             </select>
 
+            <!-- Check button moved inside the white card, above drop area -->
+            <button id="checkBtn" class="gawk-button check-button disabled">
+                Check Artwork Specs
+            </button>
+
             <div id="drop-area" class="drop-area">
                 <p>Drag & drop your artwork here</p>
                 <button id="fileBtn" class="gawk-button">Browse Files</button>
@@ -53,8 +58,6 @@ async def home():
             </div>
 
         </div>
-
-        <button id="checkBtn" class="gawk-button check-button">Check Artwork Specs</button>
 
         <div id="result-container" class="result-container hidden">
             <pre id="result"></pre>
