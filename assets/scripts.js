@@ -127,3 +127,29 @@ checkBtn.addEventListener("click", async () => {
     // Auto-scroll to result
     resultContainer.scrollIntoView({ behavior: "smooth" });
 });
+
+const resetBtn = document.getElementById("resetBtn");
+
+resetBtn.addEventListener("click", () => {
+    // Clear selected file
+    selectedFile = null;
+    fileElem.value = "";
+
+    // Reset dropdown
+    document.getElementById("specSelect").value = "";
+
+    // Hide upload confirmation
+    document.getElementById("upload-confirm").classList.add("hidden");
+
+    // Hide result box
+    resultContainer.classList.add("hidden");
+    resultBox.innerHTML = "";
+
+    // Disable check button again
+    checkBtn.classList.add("disabled");
+
+    // Scroll back up to upload box smoothly
+    document.querySelector(".upload-container").scrollIntoView({
+        behavior: "smooth"
+    });
+});
