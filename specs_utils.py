@@ -43,39 +43,75 @@ async def run_checks(file, spec_option) -> Dict[str, Any]:
 def check_jpg(file_bytes, specs):
     """
     Validates JPG artwork for digital boards.
-    Required fields from specs:
-    - width_px
-    - height_px
-    - dpi
-    - colour (RGB)
-    - file (JPG)
+    Rules enforced here:
+    - File must be an actual JPEG (content-level check, not filename)
+    - Pixel dimensions must match the spec exactly
+    - DPI must match spec (usually 72)
+    - Colour mode must be RGB
     """
 
-    # Load image from bytes
+    issues = []
+
+    # ----------------------------------------------------------
+    # TRY OPENING IMAGE
+    # ----------------------------------------------------------
     try:
         img = Image.open(io.BytesIO(file_bytes))
     except Exception:
-        return {"status": "fail", "message": "Unable to read JPG file."}
+        return {
+            "status": "fail",
+            "issues": ["File could not be opened. Export as a proper .jpg and reupload."]
+        }
 
-    result = {
+    # ----------------------------------------------------------
+    # 1. VALIDATE INTERNAL FORMAT (stop PNG renamed to .jpg)
+    # ----------------------------------------------------------
+    if img.format != "JPEG":
+        issues.append("File is not a valid JPG. Re-export your artwork as a proper .jpg and reupload.")
+
+    # ----------------------------------------------------------
+    # 2. DIMENSIONS — MUST MATCH EXACTLY
+    # ----------------------------------------------------------
+    expected_w = specs["width_px"]
+    expected_h = specs["height_px"]
+
+    if img.width != expected_w:
+        issues.append(f"Incorrect width: expected {expected_w}px, got {img.width}px.")
+
+    if img.height != expected_h:
+        issues.append(f"Incorrect height: expected {expected_h}px, got {img.height}px.")
+
+    # ----------------------------------------------------------
+    # 3. DPI CHECK — MUST BE PRESENT + CORRECT
+    # ----------------------------------------------------------
+    dpi = img.info.get("dpi", None)
+
+    if not dpi:
+        issues.append("DPI metadata missing. Export your artwork at 72 DPI.")
+    else:
+        reported_dpi = round(dpi[0])
+        if reported_dpi != specs["dpi"]:
+            issues.append(f"Incorrect DPI: expected {specs['dpi']}, got {reported_dpi}.")
+
+    # ----------------------------------------------------------
+    # 4. COLOUR MODE — MUST BE RGB
+    # ----------------------------------------------------------
+    if img.mode != "RGB":
+        issues.append(f"Colour mode must be RGB. Detected: {img.mode}")
+
+    # ----------------------------------------------------------
+    # FINAL RESULT
+    # ----------------------------------------------------------
+    if issues:
+        return {
+            "status": "fail",
+            "issues": issues
+        }
+
+    return {
         "status": "pass",
-        "issues": [],
-        "details": {}
+        "issues": []
     }
-
-    # Placeholder checks — to be implemented tonight
-    # -------------------------------------------------
-
-    # TODO: compare pixel width/height to specs
-    # TODO: check DPI == specs["dpi"]
-    # TODO: check colour mode == RGB
-    # TODO: check no transparency
-    # TODO: strict matching, no tolerance unless needed
-
-    result["details"]["placeholder"] = "JPG checks to be implemented"
-
-    return result
-
 
 # ===========================
 # STATIC PDF CHECKER
