@@ -9,6 +9,7 @@ const resultContainer = document.getElementById("result-container");
 const resultBox = document.getElementById("result");
 
 let selectedFile = null;
+checkBtn.classList.add("disabled");
 
 /* ---------------------------------------
    CLICK → Open File Picker
@@ -20,6 +21,10 @@ fileBtn.addEventListener("click", () => fileElem.click());
 ---------------------------------------- */
 fileElem.addEventListener("change", (event) => {
     selectedFile = event.target.files[0];
+
+    if (selectedFile) {
+        checkBtn.classList.remove("disabled");
+    }
 });
 
 /* ---------------------------------------
@@ -38,6 +43,10 @@ dropArea.addEventListener("drop", (event) => {
     event.preventDefault();
     dropArea.classList.remove("drag-over");
     selectedFile = event.dataTransfer.files[0];
+
+    if (selectedFile) {
+        checkBtn.classList.remove("disabled");
+    }
 });
 
 /* ---------------------------------------
