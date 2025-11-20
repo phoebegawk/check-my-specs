@@ -1,8 +1,3 @@
-/* ============================================================
-   GAWK — CHECK MY SPECS
-   Full brand styling matching PoP Report Builder
-   ============================================================ */
-
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
 
 /* ------------------------------
@@ -34,10 +29,10 @@ body {
 }
 
 .header-image {
-    max-width: 700px;     /* same scale as PoP Report Builder header */
-    width: 95%;
+    max-width: 900px;   /* Increase max width */
+    width: 100%;        /* Fill available width */
     height: auto;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
 /* ------------------------------
@@ -48,7 +43,7 @@ body {
     max-width: 800px;              /* wider, like PoP tool */
     background: #FFFFFF !important;
     border-radius: 12px;
-    padding: 30px 40px;
+    padding: 40px 50px;
     margin-bottom: 30px;
     border: 3px solid #D7DF23;     /* Gawk Green outline */
     color: #542D54 !important;     /* Purple text inside card */
@@ -61,14 +56,12 @@ body {
     width: 100%;
     padding: 12px 14px;
     border-radius: 8px;
-    border: 2px solid #D7DF23; /* Gawk Green */
+    border: 2px solid #D7DF23;
     background: #ffffff;
-    color: #542D54;            /* Purple text */
+    color: #542D54;
     font-size: 16px;
     font-weight: 600;
-    margin-bottom: 25px;
-    cursor: pointer;
-    outline: none;
+    font-family: "Montserrat", sans-serif !important;
 }
 
 /* ------------------------------
@@ -106,13 +99,15 @@ body {
     background-color: #D7DF23 !important;
     color: #542D54 !important;
     border: none;
-    border-radius: 999px;  /* pill shape */
+    border-radius: 999px;
     padding: 12px 26px;
     font-weight: 700 !important;
     cursor: pointer;
     font-size: 16px;
     transition: 0.2s ease;
     margin-top: 10px;
+    font-family: "Montserrat", sans-serif !important;   /* FIXED */
+    letter-spacing: 0.3px; /* prevents squished look on Mac */
 }
 
 .gawk-button:hover {
