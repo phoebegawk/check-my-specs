@@ -57,6 +57,10 @@ async def home():
                 <input type="file" id="fileElem" accept=".jpg,.jpeg,.pdf" />
             </div>
 
+            <div id="upload-confirm" class="upload-confirm hidden">
+                Files uploaded! Click the button below.
+            </div>
+
         </div>
 
         <div id="result-container" class="result-container hidden">
