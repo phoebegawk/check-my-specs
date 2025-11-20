@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+pillow
+pypdf
+pdfminer.six
+python-multipart
