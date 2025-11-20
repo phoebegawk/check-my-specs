@@ -170,8 +170,9 @@ body {
 }
 
 .check-button {
-    margin-top: 25px !important;
-    margin-bottom: 40px !important;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    align-self: center;
 }
 
 .gawk-button.disabled {
