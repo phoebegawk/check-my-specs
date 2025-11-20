@@ -43,74 +43,74 @@ async def run_checks(file, spec_option) -> Dict[str, Any]:
 def check_jpg(file_bytes, specs):
     """
     Validates JPG artwork for digital boards.
-    Rules enforced here:
-    - File must be an actual JPEG (content-level check, not filename)
-    - Pixel dimensions must match the spec exactly
-    - DPI must match spec (usually 72)
-    - Colour mode must be RGB
+    Short, clear, client-friendly messages.
     """
 
     issues = []
 
-    # ----------------------------------------------------------
-    # TRY OPENING IMAGE
-    # ----------------------------------------------------------
+    # Try to open image
     try:
         img = Image.open(io.BytesIO(file_bytes))
     except Exception:
         return {
             "status": "fail",
-            "issues": ["File could not be opened. Export as a proper .jpg and reupload."]
+            "message": "❌ Artwork DOES NOT meet specifications.",
+            "issues": [
+                "File cannot be opened. Please export as a clean .jpg and upload again."
+            ]
         }
 
-    # ----------------------------------------------------------
-    # 1. VALIDATE INTERNAL FORMAT (stop PNG renamed to .jpg)
-    # ----------------------------------------------------------
+    # 1. File format (strict .jpg only)
     if img.format != "JPEG":
-        issues.append("File is not a valid JPG. Re-export your artwork as a proper .jpg and reupload.")
+        issues.append(
+            "File type is not .jpg. Please export as a .jpg file and upload again."
+        )
 
-    # ----------------------------------------------------------
-    # 2. DIMENSIONS — MUST MATCH EXACTLY
-    # ----------------------------------------------------------
+    # 2. Dimensions
     expected_w = specs["width_px"]
     expected_h = specs["height_px"]
 
     if img.width != expected_w:
-        issues.append(f"Incorrect width: expected {expected_w}px, got {img.width}px.")
+        issues.append(
+            f"Incorrect width. Expected {expected_w}px. Please re-export and upload again."
+        )
 
     if img.height != expected_h:
-        issues.append(f"Incorrect height: expected {expected_h}px, got {img.height}px.")
+        issues.append(
+            f"Incorrect height. Expected {expected_h}px. Please re-export and upload again."
+        )
 
-    # ----------------------------------------------------------
-    # 3. DPI CHECK — MUST BE PRESENT + CORRECT
-    # ----------------------------------------------------------
+    # 3. DPI
     dpi = img.info.get("dpi", None)
+    expected_dpi = specs["dpi"]
 
     if not dpi:
-        issues.append("DPI metadata missing. Export your artwork at 72 DPI.")
+        issues.append(
+            f"DPI missing. Digital screens require {expected_dpi}dpi. Please re-export and upload again."
+        )
     else:
-        reported_dpi = round(dpi[0])
-        if reported_dpi != specs["dpi"]:
-            issues.append(f"Incorrect DPI: expected {specs['dpi']}, got {reported_dpi}.")
+        if dpi[0] != expected_dpi:
+            issues.append(
+                f"Incorrect DPI. Expected {expected_dpi}dpi. Please re-export and upload again."
+            )
 
-    # ----------------------------------------------------------
-    # 4. COLOUR MODE — MUST BE RGB
-    # ----------------------------------------------------------
+    # 4. Colour mode
     if img.mode != "RGB":
-        issues.append(f"Colour mode must be RGB. Detected: {img.mode}")
+        issues.append(
+            "Incorrect colour mode. Digital screens require RGB. Please convert and upload again."
+        )
 
-    # ----------------------------------------------------------
-    # FINAL RESULT
-    # ----------------------------------------------------------
+    # Final result
     if issues:
         return {
             "status": "fail",
+            "message": "❌ Artwork DOES NOT meet specifications.",
             "issues": issues
         }
 
     return {
         "status": "pass",
-        "issues": []
+        "message": "✅ Artwork meets specifications. Ready for digital upload."
     }
 
 # ===========================
