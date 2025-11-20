@@ -66,6 +66,10 @@ async def home():
             Check Artwork Specs
         </button>
 
+        <button id="resetBtn" class="gawk-button reset-button">
+            Reset
+        </button>
+
         <!-- RESULT OUTPUT BOX -->
         <div id="result-container" class="result-container hidden">
             <pre id="result"></pre>
