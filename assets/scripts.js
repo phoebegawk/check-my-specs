@@ -1,5 +1,4 @@
 // scripts.js — Check My Specs
-// Mirrors PoP Report Builder behaviour
 
 const dropArea = document.getElementById("drop-area");
 const fileElem = document.getElementById("fileElem");
@@ -9,6 +8,8 @@ const resultContainer = document.getElementById("result-container");
 const resultBox = document.getElementById("result");
 
 let selectedFile = null;
+
+// Disable button on page load
 checkBtn.classList.add("disabled");
 
 /* ---------------------------------------
@@ -79,46 +80,48 @@ checkBtn.addEventListener("click", async () => {
 
     const data = await response.json();
 
-    const result = document.getElementById("result");
-    const resultContainer = document.getElementById("result-container");
-
-    /* PASS ----------------------------------------- */
+    // PASS -----------------------------------------
     if (data.status === "pass") {
-        result.innerHTML = `
-            <div style="color:#2a7a34;
-                        font-weight:700;
-                        font-size:20px;
-                        padding:10px 0;">
+        resultBox.innerHTML = `
+            <div style="
+                color:#2a7a34;
+                font-weight:700;
+                font-size:20px;
+                padding:10px 0;
+                text-align:center;">
                 ${data.message}
             </div>
         `;
     }
 
-    /* FAIL ----------------------------------------- */
+    // FAIL -----------------------------------------
     else {
         const issuesHtml = data.issues
-             .map(i => `<div style="margin-bottom:10px;">${i}</div>`)
-             .join("");
+            .map(i => `<div style="margin-bottom:10px;">${i}</div>`)
+            .join("");
 
-        result.innerHTML = `
-            <div style="color:#b00020;
-                        font-weight:700;
-                        font-size:20px;
-                        padding:10px 0;">
+        resultBox.innerHTML = `
+            <div style="
+                color:#b00020;
+                font-weight:700;
+                font-size:20px;
+                padding:10px 0;
+                text-align:center;">
                 ${data.message}
             </div>
 
-            <ul style="color:#333;
-                       font-size:16px;
-                       padding-left:20px;
-                       margin-top:0;">
+            <div style="
+                color:#333;
+                font-size:16px;
+                text-align:center;
+                margin-top:10px;">
                 ${issuesHtml}
-            </ul>
+            </div>
         `;
     }
 
     resultContainer.classList.remove("hidden");
 
-    // OPTIONAL: auto scroll into view
+    // Auto-scroll to result
     resultContainer.scrollIntoView({ behavior: "smooth" });
 });
