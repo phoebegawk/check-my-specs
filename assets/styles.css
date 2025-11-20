@@ -72,14 +72,17 @@ body {
     display: block;
     margin: 0 auto 20px auto;
     text-align: left;
+
+    position: relative;
+    z-index: 10;   /* forces dropdown above drop-area */
 }
 
 /* ------------------------------
    DROP AREA
 -------------------------------- */
 .drop-area {
-    width: 100%;                 /* FULL WIDTH — matches dropdown */
-    max-width: 100%;             /* ensures it fills container */
+    width: calc(100% - 40px);   /* pull it inward */
+    max-width: 100%;
     border: 3px dashed #542D54;
     border-radius: 12px;
     padding: 60px 14px;
