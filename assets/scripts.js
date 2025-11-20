@@ -24,8 +24,9 @@ fileElem.addEventListener("change", (event) => {
     selectedFile = event.target.files[0];
 
     if (selectedFile) {
-        checkBtn.classList.remove("disabled");
-    }
+    checkBtn.classList.remove("disabled");
+    document.getElementById("upload-confirm").classList.remove("hidden");
+   }
 });
 
 /* ---------------------------------------
@@ -46,8 +47,9 @@ dropArea.addEventListener("drop", (event) => {
     selectedFile = event.dataTransfer.files[0];
 
     if (selectedFile) {
-        checkBtn.classList.remove("disabled");
-    }
+    checkBtn.classList.remove("disabled");
+    document.getElementById("upload-confirm").classList.remove("hidden");
+   }
 });
 
 /* ---------------------------------------
