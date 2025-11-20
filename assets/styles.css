@@ -179,3 +179,25 @@ body {
     opacity: 0.4;
     pointer-events: none;
 }
+
+.upload-confirm {
+    font-family: "Montserrat", sans-serif !important;
+    font-size: 16px;
+    color: #542D54; /* Gawk Purple */
+    background: #D7DF23; /* Gawk Green */
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    margin-top: -10px;  /* tight spacing */
+    margin-bottom: 10px;
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.upload-confirm.hidden {
+    opacity: 0;
+    display: none;
+}
