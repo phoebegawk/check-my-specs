@@ -1,27 +1,31 @@
 /* ============================================================
-   GAWK — Check My Specs
-   UI Stylesheet
-   Matches PoP Builder design: clean, bold, Gawk Green accents.
+   GAWK — CHECK MY SPECS
+   Full brand styling matching PoP Report Builder
    ============================================================ */
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
 /* ------------------------------
-   GLOBAL
+   GLOBAL PAGE + BACKGROUND
 -------------------------------- */
-body {
-    font-family: 'Montserrat', sans-serif;
+html, body {
+    background-color: #542D54 !important; /* Gawk Purple */
+    color: #FFFFFF !important;            /* White text */
+    font-family: "Montserrat", sans-serif !important;
     margin: 0;
-    padding: 40px;
-    background: #ffffff;
-    color: #542D54; /* Gawk Purple */
-    text-align: center;
+    padding: 0;
 }
 
-.hidden {
-    display: none;
+/* CENTER EVERYTHING */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
 }
 
 /* ------------------------------
-   HEADER IMAGE
+   HEADER IMAGE (match PoP sizing)
 -------------------------------- */
 .header-container {
     width: 100%;
@@ -30,99 +34,111 @@ body {
 }
 
 .header-image {
-    max-width: 460px;
-    width: 90%;
+    max-width: 700px;     /* same scale as PoP Report Builder header */
+    width: 95%;
     height: auto;
+    margin-bottom: 20px;
 }
 
 /* ------------------------------
-   UPLOAD SECTION
+   MAIN CARD (white upload container)
 -------------------------------- */
 .upload-container {
     width: 100%;
-    max-width: 520px;
-    margin: 0 auto;
-    text-align: center;
+    max-width: 800px;              /* wider, like PoP tool */
+    background: #FFFFFF !important;
+    border-radius: 12px;
+    padding: 30px 40px;
+    margin-bottom: 30px;
+    border: 3px solid #D7DF23;     /* Gawk Green outline */
+    color: #542D54 !important;     /* Purple text inside card */
 }
 
+/* ------------------------------
+   DROPDOWN STYLING
+-------------------------------- */
 .dropdown {
     width: 100%;
     padding: 12px 14px;
     border-radius: 8px;
-    border: 2px solid #542D54;
+    border: 2px solid #D7DF23; /* Gawk Green */
     background: #ffffff;
-    color: #542D54;
+    color: #542D54;            /* Purple text */
     font-size: 16px;
-    margin-bottom: 20px;
-    outline: none;
+    font-weight: 600;
+    margin-bottom: 25px;
     cursor: pointer;
+    outline: none;
 }
 
 /* ------------------------------
-   DRAG & DROP AREA
+   DROP AREA
 -------------------------------- */
 .drop-area {
-    border: 2px dashed #542D54;
+    border: 3px dashed #542D54; /* Purple dashed box */
     border-radius: 12px;
-    padding: 35px;
-    background: #fafafa;
+    padding: 50px 20px;
+    background: #f7f7f7;        /* Very light grey */
     color: #542D54;
-    margin-bottom: 20px;
+    font-size: 16px;
+    margin-bottom: 25px;
     transition: 0.3s ease;
 }
 
 .drop-area.drag-over {
-    background: #f2f2f2;
+    background: #ececec;
     border-color: #D7DF23; /* Gawk Green highlight */
 }
 
 .drop-area p {
-    margin: 0 0 14px 0;
-    font-size: 16px;
+    margin-bottom: 16px;
 }
 
-/* Hidden file input */
+/* Hide native file input */
 #fileElem {
     display: none;
 }
 
 /* ------------------------------
-   BUTTONS
+   BUTTONS — MATCH POP BUILDER
 -------------------------------- */
 .gawk-button {
-    background: #D7DF23; /* Gawk Green */
-    color: #542D54; /* Gawk Purple text */
+    background-color: #D7DF23 !important;
+    color: #542D54 !important;
     border: none;
-    border-radius: 8px;
-    padding: 12px 20px;
-    font-size: 16px;
+    border-radius: 999px;  /* pill shape */
+    padding: 12px 26px;
+    font-weight: 700 !important;
     cursor: pointer;
+    font-size: 16px;
     transition: 0.2s ease;
-    font-weight: 600;
+    margin-top: 10px;
 }
 
 .gawk-button:hover {
-    background: #c7cf1f;
+    background-color: #C8D51E !important;
 }
 
 /* ------------------------------
-   RESULTS
+   RESULT BOX
 -------------------------------- */
 .result-container {
-    margin-top: 25px;
-    text-align: left;
-    max-width: 720px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 20px;
+    width: 100%;
+    max-width: 900px;
+    background: #ffffff;
+    color: #333;
+    padding: 20px 25px;
     border-radius: 12px;
-    background: #f5f5f5;
-    border: 2px solid #542D54;
+    border: 3px solid #D7DF23;
+    margin-top: 20px;
+}
+
+.hidden {
+    display: none;
 }
 
 #result {
     white-space: pre-wrap;
-    text-align: left;
+    font-family: monospace;
     color: #333;
-    font-size: 14px;
 }
