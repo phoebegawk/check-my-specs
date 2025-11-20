@@ -41,10 +41,7 @@ async def home():
 
         <div class="upload-container">
 
-            <select id="specSelect" class="dropdown">
-                <option value="" disabled selected>Select Board Type + Size</option>
-                {options_html}
-            </select>
+            <select id="specSelect" class="dropdown">...</select>
 
             <div id="drop-area" class="drop-area">
                 <p>Drag & drop your artwork here</p>
@@ -52,8 +49,9 @@ async def home():
                 <input type="file" id="fileElem" accept=".jpg,.jpeg,.pdf" />
             </div>
 
-            <button id="checkBtn" class="gawk-button">Check Artwork Specs</button>
         </div>
+
+        <button id="checkBtn" class="gawk-button check-button">Check Artwork Specs</button>
 
         <div id="result-container" class="result-container hidden">
             <pre id="result"></pre>
