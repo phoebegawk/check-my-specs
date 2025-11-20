@@ -97,8 +97,8 @@ checkBtn.addEventListener("click", async () => {
     /* FAIL ----------------------------------------- */
     else {
         const issuesHtml = data.issues
-            .map(i => `<li style="margin-bottom:8px;">${i}</li>`)
-            .join("");
+             .map(i => `<div style="margin-bottom:10px;">${i}</div>`)
+             .join("");
 
         result.innerHTML = `
             <div style="color:#b00020;
