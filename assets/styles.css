@@ -169,3 +169,8 @@ body {
     margin-top: 25px !important;
     margin-bottom: 40px !important;
 }
+
+.gawk-button.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+}
