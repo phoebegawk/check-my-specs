@@ -1,7 +1,7 @@
-# app.py
+# specs_app.py
 
 from fastapi import FastAPI, UploadFile, File, Form
-from fastapi.responses import HTMLResponse, FileResponse
+from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 import uvicorn
 from specs_utils import run_checks
@@ -9,21 +9,20 @@ from specs_data import SPECS
 
 app = FastAPI()
 
-# Serve /assets folder like in your PoP tool
+# Serve static assets (CSS, JS, images)
 app.mount("/assets", StaticFiles(directory="assets"), name="assets")
 
 
 @app.get("/", response_class=HTMLResponse)
 async def home():
     """
-    Serve the Check My Specs front-end page.
-    (We embed raw HTML exactly like your PoP Report Builder.)
+    Serve the Check My Specs front-end interface.
     """
 
-    # Build dropdown options HTML
-    options = ""
+    # Build dynamic dropdown options from specs_data
+    options_html = ""
     for key in SPECS.keys():
-        options += f'<option value="{key}">{key}</option>'
+        options_html += f'<option value="{key}">{key}</option>'
 
     return f"""
     <html>
@@ -44,7 +43,7 @@ async def home():
 
             <select id="specSelect" class="dropdown">
                 <option value="" disabled selected>Select Board Type + Size</option>
-                {options}
+                {options_html}
             </select>
 
             <div id="drop-area" class="drop-area">
@@ -56,9 +55,12 @@ async def home():
             <button id="checkBtn" class="gawk-button">Check Artwork Specs</button>
         </div>
 
-        <pre id="result"></pre>
+        <div id="result-container" class="result-container hidden">
+            <pre id="result"></pre>
+        </div>
 
         <script src="/assets/scripts.js"></script>
+
     </body>
     </html>
     """
@@ -74,4 +76,4 @@ async def check_specs(
 
 
 if __name__ == "__main__":
-    uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("specs_app:app", host="0.0.0.0", port=8000, reload=True)
