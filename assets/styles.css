@@ -19,7 +19,7 @@ html, body {
 }
 
 body {
-    display: block; /* IMPORTANT: not flex, so white boxes can center via margin:auto */
+    display: block;          /* NOT flex – lets white boxes center via margin:auto */
     padding: 40px;
 }
 
@@ -107,7 +107,7 @@ body {
 }
 
 /* -----------------------------------
-   INLINE SECTION RESULTS  (NEW + permanent)
+   INLINE SECTION RESULTS
 ----------------------------------- */
 .section-results {
     width: 100%;
@@ -248,37 +248,4 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: #542D54;
-    font-weight: 600;
-    font-size: 14px;
-}
-
-.overlay-spinner {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    border: 3px solid #C99CCA;
-    border-top-color: #542D54;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
-/* -----------------------------------
-   ACTION BUTTON ROW
------------------------------------ */
-.actions-row {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    margin: 10px 0;
-}
-
-/* -----------------------------------
-   UTILITY
------------------------------------ */
-.hidden {
-    display: none;
-}
+    color: #
