@@ -18,10 +18,13 @@ html, body {
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    background-color: #542D54 !important;
+    color: #FFFFFF !important;
+    margin: 0;
     padding: 40px;
+
+    /* Allow full-width containers */
+    display: block;
 }
 
 /* ------------------------------
@@ -29,6 +32,9 @@ body {
 -------------------------------- */
 .header-container {
     width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
     text-align: center;
 }
 
