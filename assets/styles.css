@@ -40,7 +40,7 @@ body {
 }
 
 /* ------------------------------
-   SECTION WRAPPER
+   SECTION WRAPPER (FINAL SIZE)
 -------------------------------- */
 .spec-section,
 .upload-container {
@@ -48,8 +48,8 @@ body {
     max-width: 800px;
     background: #FFFFFF !important;
     border-radius: 12px;
-    padding: 24px 40px;   /* REDUCED from 40px 50px */
-    margin-bottom: 24px;  /* slightly tighter */
+    padding: 20px 32px;      /* tighter */
+    margin-bottom: 22px;
     border: 3px solid #D7DF23;
     color: #542D54 !important;
     text-align: center;
@@ -57,13 +57,13 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 16px;            /* REDUCED from 25px */
+    gap: 14px;               /* reduced */
 
     position: relative;
 }
 
 /* ------------------------------
-   DROPDOWN
+   DROPDOWN (unchanged)
 -------------------------------- */
 .dropdown {
     width: 100%;
@@ -74,27 +74,31 @@ body {
     color: #542D54;
     font-size: 16px;
     font-weight: 600;
-    margin-bottom: 20px;
+    margin-bottom: 16px;      /* slightly reduced */
     text-align: left;
     z-index: 10;
 }
 
 /* ------------------------------
-   DROP AREA
+   DROP AREA (FINAL WIDTH + HEIGHT)
 -------------------------------- */
 .drop-area {
-    width: calc(100% - 40px);
+    width: 100%;             /* full width of content area */
+    max-width: 736px;        /* aligns perfectly to (800px - 32px - 32px) */
+
     border: 3px dashed #542D54;
     border-radius: 12px;
-    padding: 28px 14px;   /* LESS THAN HALF */
+
+    padding: 20px 12px;      /* significantly reduced height */
     background: #f7f7f7;
     color: #542D54;
-    font-size: 16px;
+    font-size: 15px;
 
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;            /* smaller */
+    justify-content: center;
+    gap: 10px;
 }
 
 .drop-area.drag-over {
@@ -103,7 +107,7 @@ body {
 }
 
 .drop-area p {
-    margin-bottom: 16px;
+    margin: 0;               /* prevent tall spacing */
 }
 
 /* Hide native file inputs */
