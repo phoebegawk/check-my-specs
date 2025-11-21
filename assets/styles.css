@@ -48,11 +48,13 @@ body {
     border: 3px solid #D7DF23;
     color: #542D54 !important;
 
-    text-align: center;        /* NEW (centers dropdown & text) */
-    display: flex;             /* NEW */
-    flex-direction: column;    /* NEW */
-    align-items: center;       /* NEW */
-    gap: 25px;                 /* NEW, perfect PoP spacing */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+
+    position: relative;   /* <-- ADD THIS so overlay anchors correctly */
 }
 
 /* ------------------------------
@@ -254,4 +256,41 @@ body {
 @keyframes spin {
     from { transform: rotate(0deg); }
     to   { transform: rotate(360deg); }
+}
+
+/* ------------------------------
+   MULTI-SIZE SECTIONS
+-------------------------------- */
+
+.spec-section {
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 40px;
+}
+
+/* Add another size button (same pill, slightly spaced) */
+.add-size-button {
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+}
+
+/* Reset THIS section button — use your pink */
+.reset-section-button {
+    background-color: #C99CCA !important;
+    color: #542D54 !important;
+    border: none !important;
+    border-radius: 999px !important;
+    padding: 10px 24px !important;
+    font-weight: 700 !important;
+    font-size: 14px !important;
+    font-family: "Montserrat", sans-serif !important;
+    letter-spacing: 0.4px !important;
+    cursor: pointer;
+    display: block;
+    margin: 8px auto 10px auto;
+    transition: 0.2s ease;
+}
+
+.reset-section-button:hover {
+    background-color: #BA8BB8 !important;
 }
