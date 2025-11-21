@@ -53,7 +53,7 @@ async def home():
                     </select>
 
                     <div class="drop-area">
-                        <p>Drag &drop artwork here</p>
+                        <p>Drag & drop artwork here!</p>
                         <button class="gawk-button browse-btn">Browse Files</button>
                         <input type="file"
                                class="file-input"
