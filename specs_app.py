@@ -49,7 +49,7 @@ async def home():
             </select>
 
             <div id="drop-area" class="drop-area">
-                <p>Drag & drop your artwork here</p>
+                <p>Drag & drop artwork here.</p>
                 <button id="fileBtn" class="gawk-button">Browse Files</button>
                 <input type="file" id="fileElem" accept=".jpg,.jpeg,.pdf" />
             </div>
