@@ -44,20 +44,20 @@ body {
 ----------------------------------- */
 .spec-section {
     width: 100%;
-    max-width: 1200px;        /* TARGET WIDTH */
+    max-width: 1200px;
     background: #FFFFFF;
     border-radius: 12px;
     border: 3px solid #D7DF23;
     padding: 20px 32px;
 
-    margin: 0 auto 24px auto; /* CENTER THIS BOX */
-    position: relative;       /* for upload overlay */
+    margin: 0 auto 24px auto;
+    position: relative;
 }
 
-/* Inner wrapper controls content layout */
+/* Inner wrapper */
 .section-inner {
     width: 100%;
-    max-width: 1136px;        /* 1200 - padding */
+    max-width: 1136px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -88,7 +88,6 @@ body {
     border-radius: 12px;
     background: #F7F7F7;
     padding: 24px 12px;
-
     color: #542D54;
     font-size: 15px;
 
@@ -103,44 +102,47 @@ body {
     border-color: #D7DF23;
 }
 
-/* hide system input */
 .file-input {
     display: none;
 }
 
 /* -----------------------------------
-   INLINE SECTION RESULTS
+   INLINE SECTION RESULTS  (NEW + permanent)
 ----------------------------------- */
 .section-results {
     width: 100%;
-    background: #FFFFFF;
-    border: 2px solid #D7DF23;
-    border-radius: 10px;
-    padding: 16px 20px;
-    margin-top: 10px;
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
 
+.result-box {
+    border: 3px solid #D7DF23;
+    border-radius: 12px;
+    padding: 16px 20px;
+    background: #FFFFFF;
     color: #542D54;
     font-size: 14px;
-    line-height: 1.4;
+    line-height: 1.45;
 }
 
-.section-results h4 {
-    margin: 0 0 6px 0;
-    font-size: 16px;
-    font-weight: 700;
+.result-pass strong {
+    color: #2A7A34;
 }
 
-.section-results p {
-    margin: 0;
+.result-fail strong {
+    color: #B00020;
 }
 
-.section-results ul {
-    margin: 4px 0 0 20px;
-    padding: 0;
+.result-fail ul {
+    margin: 6px 0 0 0;
+    padding-left: 20px;
 }
 
-.section-results li {
-    margin-bottom: 4px;
+.result-message {
+    margin-top: 4px;
+    font-size: 14px;
 }
 
 /* -----------------------------------
