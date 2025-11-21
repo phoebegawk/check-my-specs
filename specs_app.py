@@ -53,7 +53,7 @@ async def home():
                     </select>
 
                     <div class="drop-area">
-                        <p>Drag & drop artwork here.</p>
+                        <p>Drag &drop artwork here</p>
                         <button class="gawk-button browse-btn">Browse Files</button>
                         <input type="file"
                                class="file-input"
@@ -71,7 +71,7 @@ async def home():
 
                     <!-- Upload confirmation -->
                     <div class="upload-confirm hidden">
-                        File(s) uploaded! Click “Check Artwork Specs” below.
+                        File(s) uploaded! Click “Check Specs”.
                     </div>
 
                     <!-- Inline results area for this section -->
@@ -96,7 +96,7 @@ async def home():
             </button>
 
             <button id="checkBtn" class="gawk-button check-button disabled">
-                Check Artwork Specs
+                Check Specs
             </button>
         </div>
 
