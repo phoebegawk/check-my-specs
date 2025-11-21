@@ -1,19 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
 
-/* FORCE MONTSERRAT EVERYWHERE */
+/* Force global font */
 * {
     font-family: "Montserrat", sans-serif !important;
 }
 
-/* ------------------------------
-   GLOBAL PAGE + BACKGROUND
--------------------------------- */
+/* -------- GLOBAL PAGE -------- */
 html, body {
     background-color: #542D54 !important;
     color: #FFFFFF !important;
-    font-family: "Montserrat", sans-serif !important;
-    margin: 0;
     padding: 0;
+    margin: 0;
 }
 
 body {
@@ -23,105 +20,92 @@ body {
     padding: 40px;
 }
 
-/* ------------------------------
-   HEADER
--------------------------------- */
+/* -------- HEADER -------- */
 .header-container {
     width: 100%;
     text-align: center;
-    margin-bottom: 5px;
 }
 
 .header-image {
     max-width: 900px;
     width: 100%;
-    height: auto;
     margin-bottom: 40px;
 }
 
-/* SECTION WRAPPER */
-.spec-section,
-.upload-container {
+/* -------- MAIN SPEC SECTIONS -------- */
+.spec-section {
     width: 100%;
-    max-width: 900px;      /* MATCH HEADER WIDTH */
-    background: #FFFFFF !important;
+    max-width: 1200px;        /* FULL WIDTH WHITE BOX */
+    background: #ffffff;
     border-radius: 12px;
-    padding: 20px 32px;
-    margin-bottom: 22px;
     border: 3px solid #D7DF23;
-    color: #542D54 !important;
-    text-align: center;
+    padding: 20px 32px;
+    margin-bottom: 24px;
 
+    display: flex;
+    justify-content: center;
+}
+
+/* Inner content wrapper (keeps everything aligned) */
+.section-inner {
+    width: 100%;
+    max-width: 1136px;        /* 1200 - 64px padding */
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 14px;
-
-    position: relative;
+    gap: 16px;
 }
 
-/* UNIVERSAL INNER WIDTH */
-.section-inner {
-    width: 100%;
-    max-width: 836px;      /* (900 - 64 padding) */
-}
-
-/* DROPDOWN */
+/* -------- DROPDOWN -------- */
 .dropdown {
+    width: 100%;
     padding: 12px 14px;
     border-radius: 8px;
     border: 2px solid #D7DF23;
-    background: #ffffff;
+    background: white;
     color: #542D54;
     font-size: 16px;
     font-weight: 600;
-    margin-bottom: 16px;
-    text-align: left;
-    z-index: 10;
 }
 
-/* DROP AREA */
+/* -------- DROP AREA -------- */
 .drop-area {
+    width: 100%;
     border: 3px dashed #542D54;
     border-radius: 12px;
-    padding: 20px 12px;
     background: #f7f7f7;
-    color: #542D54;
-    font-size: 15px;
+    padding: 24px 12px;
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 12px;
 }
 
-/* Hide native file inputs */
-#fileElem,
+.drop-area.drag-over {
+    background: #ececec;
+    border-color: #D7DF23;
+}
+
 .file-input {
     display: none;
 }
 
-/* ------------------------------
-   BUTTONS
--------------------------------- */
+/* -------- BUTTONS -------- */
 .gawk-button {
-    background-color: #D7DF23 !important;
+    background: #D7DF23 !important;
     color: #542D54 !important;
-    border: none !important;
-    border-radius: 999px !important;
     padding: 14px 32px !important;
+    border-radius: 999px !important;
     font-weight: 700 !important;
     font-size: 16px !important;
-    letter-spacing: 0.4px !important;
     cursor: pointer;
-    display: block;
-    margin: 0 auto;
-    transition: 0.2s ease;
+    transition: 0.2s;
 }
 
 .gawk-button:hover {
-    background-color: #C8D51E !important;
+    background: #C8D51E !important;
 }
 
 .gawk-button.disabled {
@@ -129,55 +113,42 @@ body {
     pointer-events: none;
 }
 
-/* Pink secondary button */
+/* Purple/pink add-size button */
 .secondary-button {
-    background-color: #C99CCA !important;
+    background: #C99CCA !important;
     color: #542D54 !important;
 }
+
 .secondary-button:hover {
-    background-color: #B88BBE !important;
+    background: #B88BBE !important;
 }
 
-/* Reset all */
+/* Reset All */
 .reset-button {
-    background-color: #ffffff !important;
+    background: white !important;
     color: #542D54 !important;
     border: 2px solid #D7DF23 !important;
-    margin-top: 5px !important;
-    margin-bottom: 25px !important;
 }
 
-.reset-button:hover {
-    background-color: #f2f2f2 !important;
-}
-
-/* ------------------------------
-   UPLOAD CONFIRM MESSAGE
--------------------------------- */
+/* -------- UPLOAD CONFIRM -------- */
 .upload-confirm {
     color: #542D54;
     font-size: 16px;
     font-weight: 600;
-    margin: 4px 0 0 0;
 }
-
 .upload-confirm.hidden {
     display: none;
 }
 
-/* ------------------------------
-   OVERLAY (ONE final version only)
--------------------------------- */
+/* -------- LOADING OVERLAY -------- */
 .upload-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(84, 45, 84, 0.08);
+    background: rgba(84,45,84,0.08);
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 12px;
-    backdrop-filter: blur(2px);
-    z-index: 50;
 }
 
 .upload-overlay.hidden {
@@ -185,15 +156,14 @@ body {
 }
 
 .overlay-content {
-    background: #ffffff;
-    border-radius: 999px;
+    background: white;
     padding: 8px 18px;
+    border-radius: 999px;
     display: flex;
     align-items: center;
     gap: 10px;
     color: #542D54;
     font-weight: 600;
-    font-size: 14px;
 }
 
 .overlay-spinner {
@@ -209,44 +179,27 @@ body {
     to { transform: rotate(360deg); }
 }
 
-/* ------------------------------
-   ACTIONS ROW
--------------------------------- */
+/* -------- ACTIONS ROW -------- */
 .actions-row {
     display: flex;
-    justify-content: center;
     gap: 16px;
     margin: 10px 0;
 }
 
-/* ------------------------------
-   RESULTS BOX
--------------------------------- */
+/* -------- RESULTS -------- */
 .result-container {
     width: 100%;
-    max-width: 800px;
-    background: #ffffff;
-    padding: 20px 40px;
-    border: 3px solid #D7DF23;
+    max-width: 1200px;
+    background: white;
     border-radius: 12px;
+    border: 3px solid #D7DF23;
+    padding: 24px 32px;
     color: #333;
-    margin-top: 20px;
     text-align: center;
 }
 
-#result {
-    font-size: 18px;
-    line-height: 1.4;
-    padding: 6px 0;
-}
-
 .result-divider {
-    border: none;
     border-top: 1px solid #eee;
+    margin: 12px auto;
     max-width: 700px;
-    margin: 8px auto;
-}
-
-.hidden {
-    display: none;
 }
