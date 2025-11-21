@@ -1,15 +1,15 @@
-// scripts.js — Check My Specs (multi-size, multi-file)
+// scripts.js — Check My Specs (multi-size, multi-file), improved per-file results
 
 // GLOBAL ELEMENTS
-const sectionsContainer   = document.getElementById("sections-container");
-const addSizeBtn          = document.getElementById("addSizeBtn");
-const checkBtn            = document.getElementById("checkBtn");
-const resetAllBtn         = document.getElementById("resetAllBtn");
-const specCheckOverlay    = document.getElementById("specCheckOverlay");
+const sectionsContainer = document.getElementById("sections-container");
+const addSizeBtn = document.getElementById("addSizeBtn");
+const checkBtn = document.getElementById("checkBtn");
+const resetAllBtn = document.getElementById("resetAllBtn");
+const specCheckOverlay = document.getElementById("specCheckOverlay");
 
 // STATE
 let nextSectionId = 1;
-// Each entry: { id, rootEl, specSelect, dropArea, browseBtn, fileInput, uploadOverlay, uploadConfirm, files: [] }
+// Each entry: { id, rootEl, specSelect, dropArea, browseBtn, fileInput, uploadOverlay, uploadConfirm, resultHolder, files: [] }
 const sections = [];
 
 // Disable check button on load
@@ -29,12 +29,20 @@ function initSection(sectionEl) {
     const id = nextSectionId++;
     sectionEl.dataset.sectionId = String(id);
 
-    const specSelect     = sectionEl.querySelector(".spec-select");
-    const dropArea       = sectionEl.querySelector(".drop-area");
-    const browseBtn      = sectionEl.querySelector(".browse-btn");
-    const fileInput      = sectionEl.querySelector(".file-input");
-    const uploadOverlay  = sectionEl.querySelector(".upload-overlay");
-    const uploadConfirm  = sectionEl.querySelector(".upload-confirm");
+    const specSelect    = sectionEl.querySelector(".spec-select");
+    const dropArea      = sectionEl.querySelector(".drop-area");
+    const browseBtn     = sectionEl.querySelector(".browse-btn");
+    const fileInput     = sectionEl.querySelector(".file-input");
+    const uploadOverlay = sectionEl.querySelector(".upload-overlay");
+    const uploadConfirm = sectionEl.querySelector(".upload-confirm");
+
+    // Create result holder DIV inside section
+    let resultHolder = sectionEl.querySelector(".section-results");
+    if (!resultHolder) {
+        resultHolder = document.createElement("div");
+        resultHolder.className = "section-results";
+        sectionEl.querySelector(".section-inner").appendChild(resultHolder);
+    }
 
     const state = {
         id,
@@ -45,6 +53,7 @@ function initSection(sectionEl) {
         fileInput,
         uploadOverlay,
         uploadConfirm,
+        resultHolder,
         files: []
     };
     sections.push(state);
@@ -52,7 +61,7 @@ function initSection(sectionEl) {
     // Browse click → open file picker
     browseBtn.addEventListener("click", () => fileInput.click());
 
-    // File picker selection
+    // File picker
     fileInput.addEventListener("change", (event) => {
         const files = Array.from(event.target.files || []);
         handleFilesSelected(state, files);
@@ -63,11 +72,9 @@ function initSection(sectionEl) {
         event.preventDefault();
         dropArea.classList.add("drag-over");
     });
-
     dropArea.addEventListener("dragleave", () => {
         dropArea.classList.remove("drag-over");
     });
-
     dropArea.addEventListener("drop", (event) => {
         event.preventDefault();
         dropArea.classList.remove("drag-over");
@@ -79,17 +86,8 @@ function initSection(sectionEl) {
 function handleFilesSelected(section, files) {
     if (!files.length) return;
 
-    // Store files for this section
     section.files = files;
 
-    // Clear any previous results in this section
-    const resultsBox = section.rootEl.querySelector(".section-results");
-    if (resultsBox) {
-        resultsBox.innerHTML = "";
-        resultsBox.classList.add("hidden");
-    }
-
-    // Show per-section overlay briefly, then confirmation
     if (section.uploadOverlay) section.uploadOverlay.classList.remove("hidden");
     if (section.uploadConfirm) section.uploadConfirm.classList.add("hidden");
 
@@ -107,22 +105,19 @@ function enableCheckButton() {
 }
 
 // --------------------------------------
-// CHECK BUTTON — RUNS ALL FILES
+// CHECK BUTTON
 // --------------------------------------
 
 checkBtn.addEventListener("click", async () => {
-    if (checkBtn.classList.contains("disabled")) {
-        return;
-    }
+    if (checkBtn.classList.contains("disabled")) return;
 
-    const activeSections = sections.filter(s => s.files && s.files.length > 0);
+    const activeSections = sections.filter(s => s.files.length > 0);
 
     if (!activeSections.length) {
         alert("Please upload at least one file.");
         return;
     }
 
-    // Ensure each section with files has a size selected
     for (const s of activeSections) {
         if (!s.specSelect.value) {
             alert("Please select a board type + size for each uploaded artwork.");
@@ -131,15 +126,12 @@ checkBtn.addEventListener("click", async () => {
         }
     }
 
-    const allResults = [];
+    // Results map per section
+    const sectionResults = new Map(); // sectionId → [results]
 
-    // Show global spec-check overlay
-    if (specCheckOverlay) {
-        specCheckOverlay.classList.remove("hidden");
-    }
+    specCheckOverlay.classList.remove("hidden");
 
     try {
-        // Sequentially call /check for each file
         for (const s of activeSections) {
             const specName = s.specSelect.value;
 
@@ -156,17 +148,26 @@ checkBtn.addEventListener("click", async () => {
 
                     const data = await response.json();
 
-                    allResults.push({
-                        spec: specName,
+                    const resultObj = {
                         fileName: file.name,
+                        spec: specName,
                         status: data.status,
                         message: data.message || "",
                         issues: data.issues || []
-                    });
-                } catch (err) {
-                    allResults.push({
-                        spec: specName,
+                    };
+
+                    if (!sectionResults.has(s.id)) {
+                        sectionResults.set(s.id, []);
+                    }
+                    sectionResults.get(s.id).push(resultObj);
+
+                } catch {
+                    if (!sectionResults.has(s.id)) {
+                        sectionResults.set(s.id, []);
+                    }
+                    sectionResults.get(s.id).push({
                         fileName: file.name,
+                        spec: specName,
                         status: "error",
                         message: "Something went wrong while checking this file.",
                         issues: []
@@ -175,93 +176,62 @@ checkBtn.addEventListener("click", async () => {
             }
         }
     } finally {
-        // Always hide global overlay at the end
-        if (specCheckOverlay) {
-            specCheckOverlay.classList.add("hidden");
-        }
+        specCheckOverlay.classList.add("hidden");
     }
 
-    renderResults(allResults);
+    renderSectionResults(sectionResults);
 });
 
 // --------------------------------------
-// RENDER RESULTS INLINE PER SECTION
+// RENDER PER-SECTION RESULTS
 // --------------------------------------
 
-function renderResults(results) {
-    if (!results.length) return;
+function renderSectionResults(sectionResults) {
 
-    // Clear previous inline results & hide "File(s) uploaded..."" in all sections
-    sections.forEach((s) => {
-        const box = s.rootEl.querySelector(".section-results");
-        if (box) {
-            box.innerHTML = "";
-            box.classList.add("hidden");
-        }
-        if (s.uploadConfirm) {
-            s.uploadConfirm.classList.add("hidden");
-        }
+    // Clear all results first
+    sections.forEach(s => {
+        s.resultHolder.innerHTML = "";
+        s.uploadConfirm.classList.add("hidden");
     });
 
-    // Group results by section (same spec + same file as in that section)
-    const sectionMap = new Map();
+    for (const [sectionId, results] of sectionResults.entries()) {
 
-    results.forEach((r) => {
-        const section = sections.find(
-            (s) =>
-                s.specSelect.value === r.spec &&
-                s.files.some((f) => f.name === r.fileName)
-        );
+        const section = sections.find(s => s.id == sectionId);
+        if (!section) continue;
 
-        if (!section) return;
+        const holder = section.resultHolder;
 
-        const list = sectionMap.get(section.id) || [];
-        list.push(r);
-        sectionMap.set(section.id, list);
-    });
+        results.forEach(result => {
+            const box = document.createElement("div");
+            box.className = "result-box";
 
-    // Render results inside each section's box
-    sectionMap.forEach((resultList, sectionId) => {
-        const section = sections.find((s) => s.id === sectionId);
-        if (!section) return;
-
-        const resultsBox = section.rootEl.querySelector(".section-results");
-        if (!resultsBox) return;
-
-        let html = "";
-
-        resultList.forEach((r) => {
-            if (r.status === "pass") {
-                html += `
-                    <div class="section-result-item">
-                        <h4>✔ ${r.fileName} — Pass</h4>
-                        <p>${r.message}</p>
+            if (result.status === "pass") {
+                box.innerHTML = `
+                    <div class="result-pass">
+                        <strong>✔ ${result.fileName} — Pass</strong>
+                        <div class="result-message">${result.message}</div>
                     </div>
                 `;
-            } else if (r.status === "fail") {
-                const issuesHtml = (r.issues || [])
-                    .map(i => `<li>${i}</li>`)
-                    .join("");
+            } else if (result.status === "fail") {
+                const issues = result.issues.map(i => `<li>${i}</li>`).join("");
 
-                html += `
-                    <div class="section-result-item">
-                        <h4>✖ ${r.fileName} — Fail</h4>
-                        <ul>${issuesHtml}</ul>
+                box.innerHTML = `
+                    <div class="result-fail">
+                        <strong>✖ ${result.fileName} — Fail</strong>
+                        <ul>${issues}</ul>
                     </div>
                 `;
             } else {
-                html += `
-                    <div class="section-result-item">
-                        <h4>⚠ ${r.fileName} — Error</h4>
-                        <p>${r.message}</p>
+                box.innerHTML = `
+                    <div class="result-error">
+                        ⚠ ${result.fileName} — ${result.message}
                     </div>
                 `;
             }
-        });
 
-        resultsBox.innerHTML = html;
-        resultsBox.classList.remove("hidden");
-    });
+            holder.appendChild(box);
+        });
+    }
 }
 
 // --------------------------------------
@@ -270,28 +240,26 @@ function renderResults(results) {
 
 addSizeBtn.addEventListener("click", () => {
     const first = document.querySelector(".spec-section");
-    if (!first) return;
-
-    // Deep clone the first section
     const clone = first.cloneNode(true);
 
-    // Clear values/state in clone
-    const specSelect    = clone.querySelector(".spec-select");
-    const fileInput     = clone.querySelector(".file-input");
-    const uploadConfirm = clone.querySelector(".upload-confirm");
-    const uploadOverlay = clone.querySelector(".upload-overlay");
-    const dropArea      = clone.querySelector(".drop-area");
-    const resultsBox    = clone.querySelector(".section-results");
-
+    const specSelect = clone.querySelector(".spec-select");
     if (specSelect) specSelect.value = "";
+
+    const fileInput = clone.querySelector(".file-input");
     if (fileInput) fileInput.value = "";
+
+    const uploadConfirm = clone.querySelector(".upload-confirm");
     if (uploadConfirm) uploadConfirm.classList.add("hidden");
+
+    const uploadOverlay = clone.querySelector(".upload-overlay");
     if (uploadOverlay) uploadOverlay.classList.add("hidden");
+
+    const dropArea = clone.querySelector(".drop-area");
     if (dropArea) dropArea.classList.remove("drag-over");
-    if (resultsBox) {
-        resultsBox.innerHTML = "";
-        resultsBox.classList.add("hidden");
-    }
+
+    // Remove old results
+    const oldHolder = clone.querySelector(".section-results");
+    if (oldHolder) oldHolder.remove();
 
     sectionsContainer.appendChild(clone);
     initSection(clone);
@@ -302,59 +270,27 @@ addSizeBtn.addEventListener("click", () => {
 // --------------------------------------
 
 resetAllBtn.addEventListener("click", () => {
-    // Remove all extra sections, keep first
     const allSections = sectionsContainer.querySelectorAll(".spec-section");
     allSections.forEach((el, idx) => {
         if (idx > 0) el.remove();
     });
 
-    // Reset state array and ID counter
     sections.length = 0;
     nextSectionId = 1;
 
-    // Reset first section UI
     const first = sectionsContainer.querySelector(".spec-section");
     if (first) {
-        const specSelect    = first.querySelector(".spec-select");
-        const fileInput     = first.querySelector(".file-input");
-        const uploadConfirm = first.querySelector(".upload-confirm");
-        const uploadOverlay = first.querySelector(".upload-overlay");
-        const dropArea      = first.querySelector(".drop-area");
-        const resultsBox    = first.querySelector(".section-results");
+        first.querySelector(".spec-select").value = "";
+        first.querySelector(".file-input").value = "";
+        first.querySelector(".upload-confirm").classList.add("hidden");
+        first.querySelector(".upload-overlay").classList.add("hidden");
+        first.querySelector(".drop-area").classList.remove("drag-over");
 
-        if (specSelect) specSelect.value = "";
-        if (fileInput) fileInput.value = "";
-        if (uploadConfirm) uploadConfirm.classList.add("hidden");
-        if (uploadOverlay) uploadOverlay.classList.add("hidden");
-        if (dropArea) dropArea.classList.remove("drag-over");
-        if (resultsBox) {
-            resultsBox.innerHTML = "";
-            resultsBox.classList.add("hidden");
-        }
-
-        // Rebuild state for first section (no new listeners needed, they already exist)
-        const state = {
-            id: nextSectionId++,
-            rootEl: first,
-            specSelect,
-            dropArea,
-            browseBtn: first.querySelector(".browse-btn"),
-            fileInput,
-            uploadOverlay,
-            uploadConfirm,
-            files: []
-        };
-        sections.push(state);
+        const holder = first.querySelector(".section-results");
+        if (holder) holder.innerHTML = "";
     }
 
-    // Disable check button again
-    checkBtn.classList.add("disabled");
-    checkBtn.disabled = true;
-
-    // Scroll back to the top card
-    if (first) {
-        first.scrollIntoView({ behavior: "smooth" });
-    }
+    initExistingSections();
 });
 
 // --------------------------------------
