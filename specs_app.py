@@ -75,7 +75,7 @@ async def home():
                     </div>
 
                     <!-- Inline results area for this section -->
-                    <div class="section-results hidden"></div>
+                    <div class="section-results"></div>
 
                 </div>
             </div>
