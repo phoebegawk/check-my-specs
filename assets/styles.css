@@ -4,14 +4,13 @@
    GLOBAL PAGE + BACKGROUND
 -------------------------------- */
 html, body {
-    background-color: #542D54 !important; /* Gawk Purple */
-    color: #FFFFFF !important;            /* White text */
+    background-color: #542D54 !important;
+    color: #FFFFFF !important;
     font-family: "Montserrat", sans-serif !important;
     margin: 0;
     padding: 0;
 }
 
-/* CENTER EVERYTHING */
 body {
     display: flex;
     flex-direction: column;
@@ -20,7 +19,7 @@ body {
 }
 
 /* ------------------------------
-   HEADER IMAGE (match PoP sizing)
+   HEADER
 -------------------------------- */
 .header-container {
     width: 100%;
@@ -29,15 +28,16 @@ body {
 }
 
 .header-image {
-    max-width: 900px;   /* Increase max width */
-    width: 100%;        /* Fill available width */
+    max-width: 900px;
+    width: 100%;
     height: auto;
     margin-bottom: 40px;
 }
 
 /* ------------------------------
-   MAIN CARD (white upload container)
+   SECTION WRAPPER
 -------------------------------- */
+.spec-section,
 .upload-container {
     width: 100%;
     max-width: 800px;
@@ -54,11 +54,11 @@ body {
     align-items: center;
     gap: 25px;
 
-    position: relative;   /* <-- ADD THIS so overlay anchors correctly */
+    position: relative;
 }
 
 /* ------------------------------
-   DROPDOWN STYLING
+   DROPDOWN
 -------------------------------- */
 .dropdown {
     width: 100%;
@@ -69,69 +69,60 @@ body {
     color: #542D54;
     font-size: 16px;
     font-weight: 600;
-    font-family: "Montserrat", sans-serif !important;
-
-    display: block;
-    margin: 0 auto 20px auto;
+    margin-bottom: 20px;
     text-align: left;
-
-    position: relative;
-    z-index: 10;   /* forces dropdown above drop-area */
+    z-index: 10;
 }
 
 /* ------------------------------
    DROP AREA
 -------------------------------- */
 .drop-area {
-    width: calc(100% - 40px);   /* pull it inward */
-    max-width: 100%;
+    width: calc(100% - 40px);
     border: 3px dashed #542D54;
     border-radius: 12px;
     padding: 60px 14px;
     background: #f7f7f7;
     color: #542D54;
     font-size: 18px;
-    margin-bottom: 25px;
-    transition: 0.3s ease;
-
     text-align: center;
+
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     gap: 20px;
 }
 
 .drop-area.drag-over {
     background: #ececec;
-    border-color: #D7DF23; /* Gawk Green highlight */
+    border-color: #D7DF23;
 }
 
 .drop-area p {
     margin-bottom: 16px;
 }
 
-/* Hide native file input */
-#fileElem {
+/* Hide native file inputs */
+#fileElem,
+.file-input {
     display: none;
 }
 
 /* ------------------------------
-   BUTTONS — MATCH POP BUILDER
+   BUTTONS
 -------------------------------- */
 .gawk-button {
-    background-color: #D7DF23 !important;  /* Gawk Green */
-    color: #542D54 !important;             /* Gawk Purple text */
+    background-color: #D7DF23 !important;
+    color: #542D54 !important;
     border: none !important;
-    border-radius: 999px !important;       /* pill shape */
+    border-radius: 999px !important;
     padding: 14px 32px !important;
     font-weight: 700 !important;
     font-size: 16px !important;
-    font-family: "Montserrat", sans-serif !important; /* FIX */
-    letter-spacing: 0.4px !important;      /* FIX for Mac squish */
+    letter-spacing: 0.4px !important;
     cursor: pointer;
-    margin: 0 auto;                        /* CENTER BUTTON */
-    display: block;                        /* Allows margin auto */
+    display: block;
+    margin: 0 auto;
     transition: 0.2s ease;
 }
 
@@ -139,67 +130,21 @@ body {
     background-color: #C8D51E !important;
 }
 
-.gawk-button:hover {
-    background-color: #C8D51E !important;
-}
-
-/* ------------------------------
-   RESULT BOX
--------------------------------- */
-.result-container {
-    width: 100%;
-    max-width: 800px;
-    background: #ffffff;
-    color: #333;
-    padding: 20px 50px;    /* reduced vertical padding */
-    border-radius: 12px;
-    border: 3px solid #D7DF23;
-    margin-top: 20px;
-    text-align: center;
-}
-
-.hidden {
-    display: none;
-}
-
-#result {
-    white-space: normal;
-    font-family: "Montserrat", sans-serif !important;
-    color: #333 !important;
-    text-align: center;
-    padding: 6px 0;       /* reduced */
-    line-height: 1.4;
-    font-size: 18px;
-}
-
-.check-button {
-    margin-top: 10px !important;
-    margin-bottom: 10px !important;
-    align-self: center;
-}
-
 .gawk-button.disabled {
     opacity: 0.4;
     pointer-events: none;
 }
 
-.upload-confirm {
-    color: #542D54;
-    font-size: 16px;
-    font-weight: 600;
-    text-align: center;
-    margin-top: 2px;
-    margin-bottom: 0;
-    padding: 0;
-    background: none !important;
-    border: none !important;
+/* Pink secondary button */
+.secondary-button {
+    background-color: #C99CCA !important;
+    color: #542D54 !important;
+}
+.secondary-button:hover {
+    background-color: #B88BBE !important;
 }
 
-.upload-confirm.hidden {
-    opacity: 0;
-    display: none;
-}
-
+/* Reset all */
 .reset-button {
     background-color: #ffffff !important;
     color: #542D54 !important;
@@ -209,28 +154,36 @@ body {
 }
 
 .reset-button:hover {
-    background-color: #f0f0f0 !important;
+    background-color: #f2f2f2 !important;
 }
 
-/* ==============================
-   FULL OVERLAY LOADING SCREEN
-================================= */
+/* ------------------------------
+   UPLOAD CONFIRM MESSAGE
+-------------------------------- */
+.upload-confirm {
+    color: #542D54;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 4px 0 0 0;
+}
 
+.upload-confirm.hidden {
+    display: none;
+}
+
+/* ------------------------------
+   OVERLAY (ONE final version only)
+-------------------------------- */
 .upload-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(84, 45, 84, 0.65); /* Gawk purple fade */
-    backdrop-filter: blur(2px);
-    border-radius: 12px;
-
+    inset: 0;
+    background: rgba(84, 45, 84, 0.08);
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 300;
-    transition: opacity 0.2s ease;
+    border-radius: 12px;
+    backdrop-filter: blur(2px);
+    z-index: 50;
 }
 
 .upload-overlay.hidden {
@@ -238,59 +191,68 @@ body {
 }
 
 .overlay-content {
-    text-align: center;
-    color: #FFFFFF;
-    font-family: "Montserrat", sans-serif !important;
+    background: #ffffff;
+    border-radius: 999px;
+    padding: 8px 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #542D54;
+    font-weight: 600;
+    font-size: 14px;
 }
 
 .overlay-spinner {
-    width: 50px;
-    height: 50px;
-    border: 5px solid #D7DF23;      /* Gawk green */
-    border-top: 5px solid transparent;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-    margin: 0 auto 12px auto;
+    border: 3px solid #C99CCA;
+    border-top-color: #542D54;
+    animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
+    to { transform: rotate(360deg); }
 }
 
 /* ------------------------------
-   MULTI-SIZE SECTIONS
+   ACTIONS ROW
 -------------------------------- */
+.actions-row {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin: 10px 0;
+}
 
-.spec-section {
+/* ------------------------------
+   RESULTS BOX
+-------------------------------- */
+.result-container {
     width: 100%;
     max-width: 800px;
-    margin-bottom: 40px;
+    background: #ffffff;
+    padding: 20px 40px;
+    border: 3px solid #D7DF23;
+    border-radius: 12px;
+    color: #333;
+    margin-top: 20px;
+    text-align: center;
 }
 
-/* Add another size button (same pill, slightly spaced) */
-.add-size-button {
-    margin-top: 10px !important;
-    margin-bottom: 10px !important;
+#result {
+    font-size: 18px;
+    line-height: 1.4;
+    padding: 6px 0;
 }
 
-/* Reset THIS section button — use your pink */
-.reset-section-button {
-    background-color: #C99CCA !important;
-    color: #542D54 !important;
-    border: none !important;
-    border-radius: 999px !important;
-    padding: 10px 24px !important;
-    font-weight: 700 !important;
-    font-size: 14px !important;
-    font-family: "Montserrat", sans-serif !important;
-    letter-spacing: 0.4px !important;
-    cursor: pointer;
-    display: block;
-    margin: 8px auto 10px auto;
-    transition: 0.2s ease;
+.result-divider {
+    border: none;
+    border-top: 1px solid #eee;
+    max-width: 700px;
+    margin: 8px auto;
 }
 
-.reset-section-button:hover {
-    background-color: #BA8BB8 !important;
+.hidden {
+    display: none;
 }
