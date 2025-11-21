@@ -207,6 +207,18 @@ body {
 }
 
 /* -----------------------------------
+   ACTION BUTTON ROW (NEW)
+----------------------------------- */
+.actions-row {
+    width: 100%;
+    max-width: 1200px;         /* match the white spec-section width */
+    margin: 20px auto 0 auto;  /* center + spacing */
+    display: flex;
+    justify-content: center;
+    gap: 20px;                 /* space between the two buttons */
+}
+
+/* -----------------------------------
    PER-SECTION UPLOAD OVERLAY
 ----------------------------------- */
 .upload-overlay {
@@ -243,6 +255,7 @@ body {
 
 .overlay-content {
     background: #FFFFFF;
+    color: #542D54 !important;
     padding: 8px 18px;
     border-radius: 999px;
     display: flex;
