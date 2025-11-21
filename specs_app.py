@@ -43,7 +43,7 @@ async def home():
         <!-- MAIN SECTIONS WRAPPER -->
         <div id="sections-container">
 
-            <!-- FIRST SECTION -->
+            <!-- FIRST SECTION (template for cloning) -->
             <div class="spec-section">
 
                 <div class="section-inner">
@@ -62,7 +62,7 @@ async def home():
                                multiple />
                     </div>
 
-                    <!-- Loading overlay -->
+                    <!-- Upload overlay (per section) -->
                     <div class="upload-overlay hidden">
                         <div class="overlay-content">
                             <div class="overlay-spinner"></div>
@@ -79,13 +79,28 @@ async def home():
             </div>
         </div>
 
-        <!-- ACTION BUTTONS -->
-        <div class="actions-row">
-            <button id="addSizeBtn" class="gawk-button secondary-button">+ Add another size</button>
-            <button id="checkBtn" class="gawk-button check-button disabled">Check Artwork Specs</button>
+        <!-- GLOBAL SPEC-CHECK OVERLAY -->
+        <div id="specCheckOverlay" class="spec-check-overlay hidden">
+            <div class="overlay-content">
+                <div class="overlay-spinner"></div>
+                <p>Checking specs...</p>
+            </div>
         </div>
 
-        <button id="resetAllBtn" class="gawk-button reset-button">Reset all</button>
+        <!-- ACTION BUTTONS -->
+        <div class="actions-row">
+            <button id="addSizeBtn" class="gawk-button secondary-button">
+                + Add another size
+            </button>
+
+            <button id="checkBtn" class="gawk-button check-button disabled">
+                Check Artwork Specs
+            </button>
+        </div>
+
+        <button id="resetAllBtn" class="gawk-button reset-button">
+            Reset all
+        </button>
 
         <!-- RESULTS -->
         <div id="result-container" class="result-container hidden">
