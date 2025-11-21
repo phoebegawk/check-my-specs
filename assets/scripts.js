@@ -1,12 +1,13 @@
 // scripts.js — Check My Specs
 
-const uploadOverlay = document.getElementById("uploadOverlay");
 const dropArea = document.getElementById("drop-area");
 const fileElem = document.getElementById("fileElem");
 const fileBtn = document.getElementById("fileBtn");
 const checkBtn = document.getElementById("checkBtn");
 const resultContainer = document.getElementById("result-container");
 const resultBox = document.getElementById("result");
+const uploadOverlay = document.getElementById("uploadOverlay");
+const uploadConfirm = document.getElementById("upload-confirm");
 
 let selectedFile = null;
 
