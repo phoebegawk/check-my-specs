@@ -19,7 +19,7 @@ html, body {
 }
 
 body {
-    display: block; /* IMPORTANT: do NOT use flex here */
+    display: block; /* IMPORTANT: not flex, so white boxes can center via margin:auto */
     padding: 40px;
 }
 
@@ -51,7 +51,7 @@ body {
     padding: 20px 32px;
 
     margin: 0 auto 24px auto; /* CENTER THIS BOX */
-    position: relative;        /* for upload overlay */
+    position: relative;       /* for upload overlay */
 }
 
 /* Inner wrapper controls content layout */
@@ -106,6 +106,41 @@ body {
 /* hide system input */
 .file-input {
     display: none;
+}
+
+/* -----------------------------------
+   INLINE SECTION RESULTS
+----------------------------------- */
+.section-results {
+    width: 100%;
+    background: #FFFFFF;
+    border: 2px solid #D7DF23;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-top: 10px;
+
+    color: #542D54;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.section-results h4 {
+    margin: 0 0 6px 0;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.section-results p {
+    margin: 0;
+}
+
+.section-results ul {
+    margin: 4px 0 0 20px;
+    padding: 0;
+}
+
+.section-results li {
+    margin-bottom: 4px;
 }
 
 /* -----------------------------------
@@ -237,29 +272,6 @@ body {
     justify-content: center;
     gap: 16px;
     margin: 10px 0;
-}
-
-/* -----------------------------------
-   RESULTS BOX
------------------------------------ */
-.result-container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 20px auto 0 auto;
-
-    background: #FFFFFF;
-    border-radius: 12px;
-    border: 3px solid #D7DF23;
-    padding: 24px 32px;
-
-    text-align: center;
-    color: #333;
-}
-
-.result-divider {
-    border-top: 1px solid #EEE;
-    margin: 12px auto;
-    max-width: 700px;
 }
 
 /* -----------------------------------
