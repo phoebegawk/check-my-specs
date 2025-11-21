@@ -54,9 +54,16 @@ async def home():
                 <input type="file" id="fileElem" accept=".jpg,.jpeg,.pdf" />
             </div>
 
+            <div id="uploadOverlay" class="upload-overlay hidden">
+                <div class="overlay-content">
+                    <div class="overlay-spinner"></div>
+                    <p>Uploading...</p>
+                </div>
+            </div>
+
             <!-- Appears after file upload -->
             <div id="upload-confirm" class="upload-confirm hidden">
-                File/s uploaded  ⬇️  Click the button below
+                File uploaded! Click below.
             </div>
 
         </div>
