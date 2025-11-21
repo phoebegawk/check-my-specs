@@ -39,16 +39,14 @@ body {
     margin-bottom: 40px;
 }
 
-/* ------------------------------
-   SECTION WRAPPER (FINAL SIZE)
--------------------------------- */
+/* SECTION WRAPPER */
 .spec-section,
 .upload-container {
     width: 100%;
-    max-width: 800px;
+    max-width: 900px;      /* MATCH HEADER WIDTH */
     background: #FFFFFF !important;
     border-radius: 12px;
-    padding: 20px 32px;      /* tighter */
+    padding: 20px 32px;
     margin-bottom: 22px;
     border: 3px solid #D7DF23;
     color: #542D54 !important;
@@ -57,16 +55,19 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 14px;               /* reduced */
+    gap: 14px;
 
     position: relative;
 }
 
-/* ------------------------------
-   DROPDOWN (unchanged)
--------------------------------- */
-.dropdown {
+/* UNIVERSAL INNER WIDTH */
+.section-inner {
     width: 100%;
+    max-width: 836px;      /* (900 - 64 padding) */
+}
+
+/* DROPDOWN */
+.dropdown {
     padding: 12px 14px;
     border-radius: 8px;
     border: 2px solid #D7DF23;
@@ -74,22 +75,16 @@ body {
     color: #542D54;
     font-size: 16px;
     font-weight: 600;
-    margin-bottom: 16px;      /* slightly reduced */
+    margin-bottom: 16px;
     text-align: left;
     z-index: 10;
 }
 
-/* ------------------------------
-   DROP AREA (FINAL WIDTH + HEIGHT)
--------------------------------- */
+/* DROP AREA */
 .drop-area {
-    width: 100%;             /* full width of content area */
-    max-width: 736px;        /* aligns perfectly to (800px - 32px - 32px) */
-
     border: 3px dashed #542D54;
     border-radius: 12px;
-
-    padding: 20px 12px;      /* significantly reduced height */
+    padding: 20px 12px;
     background: #f7f7f7;
     color: #542D54;
     font-size: 15px;
@@ -99,15 +94,6 @@ body {
     align-items: center;
     justify-content: center;
     gap: 10px;
-}
-
-.drop-area.drag-over {
-    background: #ececec;
-    border-color: #D7DF23;
-}
-
-.drop-area p {
-    margin: 0;               /* prevent tall spacing */
 }
 
 /* Hide native file inputs */
