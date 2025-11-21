@@ -23,8 +23,9 @@ body {
     margin: 0;
     padding: 40px;
 
-    /* Allow full-width containers */
-    display: block;
+    display: flex;              /* restore */
+    flex-direction: column;     /* keep vertical layout */
+    align-items: center;        /* ensures children are centered */
 }
 
 /* ------------------------------
@@ -164,6 +165,12 @@ body {
     background: #F2F2F2 !important;
 }
 
+.reset-button {
+    display: block;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
 /* ------------------------------
    UPLOAD CONFIRM MESSAGE
 -------------------------------- */
@@ -211,6 +218,11 @@ body {
 
 .spec-check-overlay.hidden {
     display: none;
+}
+
+.spec-section {
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Shared overlay content (for both upload + spec-check) */
