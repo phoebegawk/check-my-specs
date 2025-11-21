@@ -1,5 +1,6 @@
 // scripts.js — Check My Specs
 
+const uploadOverlay = document.getElementById("uploadOverlay");
 const dropArea = document.getElementById("drop-area");
 const fileElem = document.getElementById("fileElem");
 const fileBtn = document.getElementById("fileBtn");
@@ -24,9 +25,14 @@ fileElem.addEventListener("change", (event) => {
     selectedFile = event.target.files[0];
 
     if (selectedFile) {
-    checkBtn.classList.remove("disabled");
-    document.getElementById("upload-confirm").classList.remove("hidden");
-   }
+        uploadOverlay.classList.remove("hidden");
+
+        setTimeout(() => {
+            uploadOverlay.classList.add("hidden");
+            uploadConfirm.classList.remove("hidden");
+            checkBtn.classList.remove("disabled");
+        }, 800);
+    }
 });
 
 /* ---------------------------------------
@@ -47,9 +53,14 @@ dropArea.addEventListener("drop", (event) => {
     selectedFile = event.dataTransfer.files[0];
 
     if (selectedFile) {
-    checkBtn.classList.remove("disabled");
-    document.getElementById("upload-confirm").classList.remove("hidden");
-   }
+        uploadOverlay.classList.remove("hidden");
+
+        setTimeout(() => {
+            uploadOverlay.classList.add("hidden");
+            uploadConfirm.classList.remove("hidden");
+            checkBtn.classList.remove("disabled");
+        }, 800);
+    }
 });
 
 /* ---------------------------------------
