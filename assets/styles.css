@@ -4,23 +4,22 @@
    GLOBAL FONT
 ----------------------------------- */
 * {
-    font-family: "Montserrat", sans-serif !important;
+    font-family: "Montserrat", sans-serif;
+    box-sizing: border-box;
 }
 
 /* -----------------------------------
    GLOBAL PAGE
 ----------------------------------- */
 html, body {
-    background-color: #542D54 !important;
-    color: #FFFFFF !important;
+    background-color: #542D54;
+    color: #FFFFFF;
     margin: 0;
     padding: 0;
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: block; /* IMPORTANT: do NOT use flex here */
     padding: 40px;
 }
 
@@ -35,8 +34,8 @@ body {
 }
 
 .header-image {
-    max-width: 900px;
     width: 100%;
+    max-width: 900px;
     margin-bottom: 40px;
 }
 
@@ -45,25 +44,25 @@ body {
 ----------------------------------- */
 .spec-section {
     width: 100%;
-    max-width: 1200px;         /* full-width white box */
+    max-width: 1200px;        /* TARGET WIDTH */
     background: #FFFFFF;
     border-radius: 12px;
     border: 3px solid #D7DF23;
     padding: 20px 32px;
-    margin: 0 auto 24px auto;  /* centers the box */
-    display: flex;
-    justify-content: center;
-    position: relative;        /* for per-section overlay */
+
+    margin: 0 auto 24px auto; /* CENTER THIS BOX */
+    position: relative;        /* for upload overlay */
 }
 
-/* Inner wrapper for dropdown + drop area */
+/* Inner wrapper controls content layout */
 .section-inner {
     width: 100%;
-    max-width: 100%;          /* <— FIX: allows full stretching */
+    max-width: 1136px;        /* 1200 - padding */
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 16px;
+    align-items: center;
 }
 
 /* -----------------------------------
@@ -89,13 +88,13 @@ body {
     border-radius: 12px;
     background: #F7F7F7;
     padding: 24px 12px;
+
     color: #542D54;
     font-size: 15px;
 
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     gap: 12px;
 }
 
@@ -104,6 +103,7 @@ body {
     border-color: #D7DF23;
 }
 
+/* hide system input */
 .file-input {
     display: none;
 }
@@ -112,19 +112,19 @@ body {
    BUTTONS
 ----------------------------------- */
 .gawk-button {
-    background: #D7DF23 !important;
-    color: #542D54 !important;
-    padding: 14px 32px !important;
-    border-radius: 999px !important;
-    border: none !important;
-    font-weight: 700 !important;
-    font-size: 16px !important;
+    background: #D7DF23;
+    color: #542D54;
+    padding: 14px 32px;
+    border-radius: 999px;
+    border: none;
+    font-weight: 700;
+    font-size: 16px;
     cursor: pointer;
     transition: 0.2s ease;
 }
 
 .gawk-button:hover {
-    background: #C8D51E !important;
+    background: #C8D51E;
 }
 
 .gawk-button.disabled {
@@ -132,30 +132,27 @@ body {
     pointer-events: none;
 }
 
-/* Purple add-size button */
+/* Pink add-size button */
 .secondary-button {
-    background: #C99CCA !important;
-    color: #542D54 !important;
+    background: #C99CCA;
+    color: #542D54;
 }
 
 .secondary-button:hover {
-    background: #B88BBE !important;
+    background: #B88BBE;
 }
 
 /* Reset button */
 .reset-button {
-    background: #FFFFFF !important;
-    color: #542D54 !important;
-    border: 2px solid #D7DF23 !important;
-    margin-top: 5px !important;
-    margin-bottom: 25px !important;
+    background: #FFFFFF;
+    color: #542D54;
+    border: 2px solid #D7DF23;
+    margin: 5px auto 25px auto;
     display: block;
-    margin-left: auto !important;
-    margin-right: auto !important;
 }
 
 .reset-button:hover {
-    background: #F2F2F2 !important;
+    background: #F2F2F2;
 }
 
 /* -----------------------------------
@@ -180,7 +177,6 @@ body {
     inset: 0;
     background: rgba(84,45,84,0.08);
     border-radius: 12px;
-
     display: flex;
     align-items: center;
     justify-content: center;
@@ -208,7 +204,6 @@ body {
     display: none;
 }
 
-/* Shared overlay styling */
 .overlay-content {
     background: #FFFFFF;
     padding: 8px 18px;
@@ -218,6 +213,7 @@ body {
     gap: 10px;
     color: #542D54;
     font-weight: 600;
+    font-size: 14px;
 }
 
 .overlay-spinner {
@@ -249,23 +245,18 @@ body {
 .result-container {
     width: 100%;
     max-width: 1200px;
+    margin: 20px auto 0 auto;
+
     background: #FFFFFF;
     border-radius: 12px;
     border: 3px solid #D7DF23;
     padding: 24px 32px;
-    color: #333;
-    text-align: center;
-    margin-top: 20px;
-}
 
-#result {
-    font-size: 18px;
-    line-height: 1.4;
-    padding: 6px 0;
+    text-align: center;
+    color: #333;
 }
 
 .result-divider {
-    border: none;
     border-top: 1px solid #EEE;
     margin: 12px auto;
     max-width: 700px;
