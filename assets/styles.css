@@ -59,7 +59,7 @@ body {
 /* Inner wrapper for dropdown + drop area */
 .section-inner {
     width: 100%;
-    max-width: 1136px;         /* 1200 - 64px padding */
+    max-width: 100%;          /* <— FIX: allows full stretching */
     display: flex;
     flex-direction: column;
     align-items: center;
