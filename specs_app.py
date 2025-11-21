@@ -16,7 +16,7 @@ app.mount("/assets", StaticFiles(directory="assets"), name="assets")
 @app.get("/", response_class=HTMLResponse)
 async def home():
     """
-    Serve the Check My Specs front-end interface.
+    Serve the Check My Specs front-end interface (multi-size mode).
     """
 
     # Build dynamic dropdown options from specs_data
@@ -40,47 +40,114 @@ async def home():
                  alt="Check My Specs">
         </div>
 
-        <!-- WHITE UPLOAD BOX -->
-        <div class="upload-container">
+        <!-- ALL SIZE SECTIONS LIVE HERE -->
+        <div id="sections-container">
 
-            <select id="specSelect" class="dropdown">
-                <option value="" disabled selected>Select Board Type + Size</option>
-                {options_html}
-            </select>
+            <!-- FIRST SECTION (index 1) -->
+            <div class="spec-section" data-index="1">
 
-            <div id="drop-area" class="drop-area">
-                <p>Drag & drop artwork here.</p>
-                <button id="fileBtn" class="gawk-button">Browse Files</button>
-                <input type="file" id="fileElem" accept=".jpg,.jpeg,.pdf" />
-            </div>
+                <!-- WHITE UPLOAD BOX -->
+                <div class="upload-container">
 
-            <div id="uploadOverlay" class="upload-overlay hidden">
-                <div class="overlay-content">
-                    <div class="overlay-spinner"></div>
-                    <p>Uploading...</p>
+                    <select class="dropdown spec-select">
+                        <option value="" disabled selected>Select Board Type + Size</option>
+                        {options_html}
+                    </select>
+
+                    <div class="drop-area">
+                        <p>Drag & drop artwork here.</p>
+                        <button class="gawk-button fileBtn">Browse Files</button>
+                        <input type="file"
+                               class="fileElem"
+                               accept=".jpg,.jpeg,.pdf"
+                               multiple />
+                    </div>
+
+                    <div class="upload-overlay hidden">
+                        <div class="overlay-content">
+                            <div class="overlay-spinner"></div>
+                            <p>Uploading...</p>
+                        </div>
+                    </div>
+
+                    <!-- Appears after file upload -->
+                    <div class="upload-confirm hidden">
+                        Files uploaded! Click the button below.
+                    </div>
+
+                </div>
+
+                <!-- BUTTONS + RESULT FOR THIS SECTION -->
+                <button class="gawk-button check-button disabled">
+                    Check Artwork Specs
+                </button>
+
+                <button class="gawk-button reset-section-button">
+                    Reset this size
+                </button>
+
+                <div class="result-container hidden">
+                    <pre class="result"></pre>
+                </div>
+
+            </div> <!-- /spec-section -->
+
+        </div> <!-- /sections-container -->
+
+
+        <!-- TEMPLATE FOR NEW SECTIONS (CLONED BY JS) -->
+        <template id="spec-section-template">
+            <div class="spec-section" data-index="">
+                <div class="upload-container">
+
+                    <select class="dropdown spec-select">
+                        <option value="" disabled selected>Select Board Type + Size</option>
+                        {options_html}
+                    </select>
+
+                    <div class="drop-area">
+                        <p>Drag & drop artwork here.</p>
+                        <button class="gawk-button fileBtn">Browse Files</button>
+                        <input type="file"
+                               class="fileElem"
+                               accept=".jpg,.jpeg,.pdf"
+                               multiple />
+                    </div>
+
+                    <div class="upload-overlay hidden">
+                        <div class="overlay-content">
+                            <div class="overlay-spinner"></div>
+                            <p>Uploading...</p>
+                        </div>
+                    </div>
+
+                    <div class="upload-confirm hidden">
+                        Files uploaded! Click the button below.
+                    </div>
+                </div>
+
+                <button class="gawk-button check-button disabled">
+                    Check Artwork Specs
+                </button>
+
+                <button class="gawk-button reset-section-button">
+                    Reset this size
+                </button>
+
+                <div class="result-container hidden">
+                    <pre class="result"></pre>
                 </div>
             </div>
+        </template>
 
-            <!-- Appears after file upload -->
-            <div id="upload-confirm" class="upload-confirm hidden">
-                File uploaded! Click below.
-            </div>
-
-        </div>
-
-        <!-- BUTTON NOW OUTSIDE THE WHITE BOX -->
-        <button id="checkBtn" class="gawk-button check-button disabled">
-            Check Artwork Specs
+        <!-- GLOBAL ACTIONS -->
+        <button id="addSizeBtn" class="gawk-button add-size-button">
+            + Add another size
         </button>
 
-        <button id="resetBtn" class="gawk-button reset-button">
-            Reset
+        <button id="resetAllBtn" class="gawk-button reset-button">
+            Reset all
         </button>
-
-        <!-- RESULT OUTPUT BOX -->
-        <div id="result-container" class="result-container hidden">
-            <pre id="result"></pre>
-        </div>
 
         <script src="/assets/scripts.js"></script>
 
@@ -94,6 +161,11 @@ async def check_specs(
     spec_option: str = Form(...),
     file: UploadFile = File(...)
 ):
+    """
+    NOTE: Still checks ONE file per request.
+    Multi-file support is handled in the frontend by calling this endpoint
+    once per file and aggregating the results.
+    """
     result = await run_checks(file, spec_option)
     return result
 
