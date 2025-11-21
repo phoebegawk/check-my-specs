@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
 
+/* FORCE MONTSERRAT EVERYWHERE */
+* {
+    font-family: "Montserrat", sans-serif !important;
+}
+
 /* ------------------------------
    GLOBAL PAGE + BACKGROUND
 -------------------------------- */
@@ -43,16 +48,16 @@ body {
     max-width: 800px;
     background: #FFFFFF !important;
     border-radius: 12px;
-    padding: 40px 50px;
-    margin-bottom: 30px;
+    padding: 24px 40px;   /* REDUCED from 40px 50px */
+    margin-bottom: 24px;  /* slightly tighter */
     border: 3px solid #D7DF23;
     color: #542D54 !important;
-
     text-align: center;
+
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 25px;
+    gap: 16px;            /* REDUCED from 25px */
 
     position: relative;
 }
@@ -81,16 +86,15 @@ body {
     width: calc(100% - 40px);
     border: 3px dashed #542D54;
     border-radius: 12px;
-    padding: 60px 14px;
+    padding: 28px 14px;   /* LESS THAN HALF */
     background: #f7f7f7;
     color: #542D54;
-    font-size: 18px;
-    text-align: center;
+    font-size: 16px;
 
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 12px;            /* smaller */
 }
 
 .drop-area.drag-over {
