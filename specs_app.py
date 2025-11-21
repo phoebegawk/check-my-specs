@@ -45,7 +45,6 @@ async def home():
 
             <!-- FIRST SECTION (template for cloning) -->
             <div class="spec-section">
-
                 <div class="section-inner">
 
                     <select class="dropdown spec-select">
@@ -75,6 +74,9 @@ async def home():
                         File(s) uploaded! Click “Check Artwork Specs” below.
                     </div>
 
+                    <!-- Inline results area for this section -->
+                    <div class="section-results hidden"></div>
+
                 </div>
             </div>
         </div>
@@ -101,11 +103,6 @@ async def home():
         <button id="resetAllBtn" class="gawk-button reset-button">
             Reset all
         </button>
-
-        <!-- RESULTS -->
-        <div id="result-container" class="result-container hidden">
-            <pre id="result"></pre>
-        </div>
 
         <script src="/assets/scripts.js"></script>
 
